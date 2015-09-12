@@ -16,7 +16,7 @@ namespace Core.DI
         /// <summary>
         /// The new type need to register
         /// </summary>
-        [UsedImplicitly] 
+        [UsedImplicitly]
         private static IList<Type> _registerTypes = new List<Type>();
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace Core.DI
             var types = assembly.DefinedTypes.Where(type => typeof(IDependency).IsAssignableFrom(type) || typeof(IPerRequestDependency).IsAssignableFrom(type) || typeof(ISingletonDependency).IsAssignableFrom(type));
             foreach (var type in types.Distinct())
             {
-                if(type.IsInterface || type.IsAbstract) continue;
+                if (type.IsInterface || type.IsAbstract) continue;
                 var interfaces = type.GetInterfaces();
 
                 if (type.IsGenericType)
@@ -105,7 +105,7 @@ namespace Core.DI
                         {
                             // If @interface is IPerRequestDependency type
                             // Register as InstancePerRequest
-                            genericRegistration = genericRegistration.InstancePerLifetimeScope();
+                            genericRegistration = genericRegistration.InstancePerRequest();
                         }
                         else
                         {
@@ -132,7 +132,7 @@ namespace Core.DI
                         {
                             // If @interface is IPerRequestDependency type
                             // Register as InstancePerRequest
-                            registration = registration.InstancePerLifetimeScope();
+                            registration = registration.InstancePerRequest();
                         }
                         else
                         {
@@ -159,7 +159,7 @@ namespace Core.DI
                     containerBuilder.RegisterModule(instance);
             }
         }
-        
+
         /// <summary>
         /// Register the new Component (Example: the new Third-Party) 
         /// </summary>

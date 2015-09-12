@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Core.DI;
 
-namespace STS.DAL.Repository
+namespace Core.Common
 {
     public interface IRepository<T> : IDependency
     {

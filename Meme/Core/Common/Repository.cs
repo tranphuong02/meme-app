@@ -6,9 +6,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using Core.Model.Entities;
 using Core.UnitOfWork;
-using STS.DAL.Repository;
 
-namespace Core.Repository
+namespace Core.Common
 {
     public class Repository<T> : IRepository<T> where T : BaseEntity
     {
