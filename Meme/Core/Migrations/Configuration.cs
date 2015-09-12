@@ -1,7 +1,10 @@
+using Common.Constants;
+using Common.Enums;
+using Core.Model.Entities;
+
 namespace Core.Migrations
 {
     using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
@@ -12,20 +15,24 @@ namespace Core.Migrations
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(Core.Model.MemeContext context)
+        protected override void Seed(Model.MemeContext context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            // Insert admin user
+            if (!context.User.Any(x => x.UserName == AppConstants.AdminUsername))
+            {
+                context.User.Add(new User
+                {
+                    UserName = AppConstants.AdminUsername,
+                    Password = AppConstants.AdminPassword,
+                    SaltKey = AppConstants.AdminSaltKey,
+                    FirstName = "Phuong",
+                    LastName = "Tran",
+                    Role = (int)UserRoleEnums.Administrator,
+                    IsActive = true,
+                    IsDelete = false,
+                    CreatedDate = DateTime.Now
+                });
+            }
         }
     }
 }

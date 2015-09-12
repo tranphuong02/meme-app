@@ -40,6 +40,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\AppConstants.cs" />
+    <Compile Include="Enums\Enums.cs" />
+    <Compile Include="Enums\GenderEnums.cs" />
+    <Compile Include="Enums\ImageEnums.cs" />
+    <Compile Include="Enums\StatusMessageEnum.cs" />
+    <Compile Include="Enums\UserRoleEnums.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
