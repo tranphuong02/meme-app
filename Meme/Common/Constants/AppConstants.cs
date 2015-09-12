@@ -5,6 +5,8 @@ namespace Common.Constants
     {
         #region Variables
 
+        public const string AdministratorAreaName = "Administrator";
+
         public const int MinText = 6;
         public const int VeryShortText = 50;
         public const int ShortText = 100;
@@ -16,7 +18,7 @@ namespace Common.Constants
 
         #region Formats
 
-        public static string DateTimeFormat = "dd/MM/yyyy"; 
+        public const string DateTimeFormat = "dd/MM/yyyy"; 
 
         #endregion
     }
