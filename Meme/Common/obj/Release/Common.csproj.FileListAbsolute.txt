@@ -1,4 +1,0 @@
-D:\Project\2015\MemeApp\Meme\Common\bin\Release\Common.dll
-D:\Project\2015\MemeApp\Meme\Common\bin\Release\Common.pdb
-D:\Project\2015\MemeApp\Meme\Common\obj\Release\Common.dll
-D:\Project\2015\MemeApp\Meme\Common\obj\Release\Common.pdb
