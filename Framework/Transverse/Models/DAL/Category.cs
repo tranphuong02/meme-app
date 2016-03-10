@@ -1,32 +1,27 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Transverse.Models.DAL
 {
-    public partial class Category
+    public class Category : BaseModel
     {
-        public Category()
-        {
-            this.SubCategories = new List<Category>();
-            this.CategoryLocalizes = new List<CategoryLocalize>();
-            this.Coupon_Category = new List<Coupon_Category>();
-            this.Deal_Category = new List<Deal_Category>();
-        }
+        public string Title { get; set; }
+        public string Title1 { get; set; }
+        public string Url { get; set; }
+        public string Keyword { get; set; }
+        public string Description { get; set; }
+        public string Summary { get; set; }
+        public DateTime? StartedDate { get; set; }
+        public DateTime? EndedDate { get; set; }
+        public int Status { get; set; }
 
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public Nullable<int> ParentId { get; set; }
-        public string ImageUrl { get; set; }
-        public string Color { get; set; }
-        public string PinUrl { get; set; }
-        public bool IsDeleted { get; set; }
-        public int Order { get; set; }
-        public System.DateTime CreateDate { get; set; }
-        public System.DateTime LastUpdate { get; set; }
-        public virtual ICollection<Category> SubCategories { get; set; }
-        public virtual Category ParentCategory { get; set; }
-        public virtual ICollection<CategoryLocalize> CategoryLocalizes { get; set; }
-        public virtual ICollection<Coupon_Category> Coupon_Category { get; set; }
-        public virtual ICollection<Deal_Category> Deal_Category { get; set; }
+        [ForeignKey("Author")]
+        public int AuthorId { get; set; }
+
+        // Helper Properties
+        public virtual Author Author { get; set; }
+
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }
