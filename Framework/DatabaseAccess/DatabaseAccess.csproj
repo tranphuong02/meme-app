@@ -175,6 +175,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201603111112108_InitialDatabase.cs" />
+    <Compile Include="Migrations\201603111112108_InitialDatabase.Designer.cs">
+      <DependentUpon>201603111112108_InitialDatabase.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserRepository.cs" />
     <Compile Include="RoleRepository.cs" />
     <Compile Include="ReviewRepository.cs" />
@@ -187,10 +191,6 @@
     <Compile Include="ChapterRepository.cs" />
     <Compile Include="CategoryRepository.cs" />
     <Compile Include="AuthorRepository.cs" />
-    <Compile Include="Migrations\201603111028592_InitialDatabase.cs" />
-    <Compile Include="Migrations\201603111028592_InitialDatabase.Designer.cs">
-      <DependentUpon>201603111028592_InitialDatabase.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\DatabaseMigrations.cs" />
     <Compile Include="Models\FrameworkContext.cs" />
@@ -236,8 +236,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201603111028592_InitialDatabase.resx">
-      <DependentUpon>201603111028592_InitialDatabase.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201603111112108_InitialDatabase.resx">
+      <DependentUpon>201603111112108_InitialDatabase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -125,28 +125,13 @@ namespace DatabaseAccess.Migrations
                         Keyword = c.String(),
                         Description = c.String(),
                         ViewCount = c.Int(nullable: false),
-                        IsDeleted = c.Boolean(nullable: false),
-                        CreatedDate = c.DateTime(nullable: false),
-                        ModifiedDate = c.DateTime(),
-                    })
-                .PrimaryKey(t => t.Id);
-            
-            CreateTable(
-                "dbo.Reviews",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Score = c.Double(nullable: false),
-                        CategoryId = c.Int(nullable: false),
-                        UserId = c.Int(),
+                        UserId = c.Int(nullable: false),
                         IsDeleted = c.Boolean(nullable: false),
                         CreatedDate = c.DateTime(nullable: false),
                         ModifiedDate = c.DateTime(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Categories", t => t.CategoryId, cascadeDelete: true)
-                .ForeignKey("dbo.Users", t => t.UserId)
-                .Index(t => t.CategoryId)
+                .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
             CreateTable(
@@ -169,6 +154,24 @@ namespace DatabaseAccess.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Roles", t => t.RoleId, cascadeDelete: true)
                 .Index(t => t.RoleId);
+            
+            CreateTable(
+                "dbo.Reviews",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Score = c.Double(nullable: false),
+                        CategoryId = c.Int(nullable: false),
+                        UserId = c.Int(),
+                        IsDeleted = c.Boolean(nullable: false),
+                        CreatedDate = c.DateTime(nullable: false),
+                        ModifiedDate = c.DateTime(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Categories", t => t.CategoryId, cascadeDelete: true)
+                .ForeignKey("dbo.Users", t => t.UserId)
+                .Index(t => t.CategoryId)
+                .Index(t => t.UserId);
             
             CreateTable(
                 "dbo.Roles",
@@ -218,18 +221,20 @@ namespace DatabaseAccess.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.Authors", "ResourceId", "dbo.Resources");
-            DropForeignKey("dbo.Reviews", "UserId", "dbo.Users");
-            DropForeignKey("dbo.Users", "RoleId", "dbo.Roles");
-            DropForeignKey("dbo.Reviews", "CategoryId", "dbo.Categories");
             DropForeignKey("dbo.Genre_Category", "GenreId", "dbo.Genres");
             DropForeignKey("dbo.Genres", "ResourceId", "dbo.Resources");
             DropForeignKey("dbo.Chapter_Resource", "ResourceId", "dbo.Resources");
             DropForeignKey("dbo.Chapter_Resource", "ChapterId", "dbo.Chapters");
+            DropForeignKey("dbo.Chapters", "UserId", "dbo.Users");
+            DropForeignKey("dbo.Users", "RoleId", "dbo.Roles");
+            DropForeignKey("dbo.Reviews", "UserId", "dbo.Users");
+            DropForeignKey("dbo.Reviews", "CategoryId", "dbo.Categories");
             DropForeignKey("dbo.Genre_Category", "CategoryId", "dbo.Categories");
             DropForeignKey("dbo.Categories", "AuthorId", "dbo.Authors");
-            DropIndex("dbo.Users", new[] { "RoleId" });
             DropIndex("dbo.Reviews", new[] { "UserId" });
             DropIndex("dbo.Reviews", new[] { "CategoryId" });
+            DropIndex("dbo.Users", new[] { "RoleId" });
+            DropIndex("dbo.Chapters", new[] { "UserId" });
             DropIndex("dbo.Chapter_Resource", new[] { "ResourceId" });
             DropIndex("dbo.Chapter_Resource", new[] { "ChapterId" });
             DropIndex("dbo.Genres", new[] { "ResourceId" });
@@ -240,8 +245,8 @@ namespace DatabaseAccess.Migrations
             DropTable("dbo.Menus");
             DropTable("dbo.Configs");
             DropTable("dbo.Roles");
-            DropTable("dbo.Users");
             DropTable("dbo.Reviews");
+            DropTable("dbo.Users");
             DropTable("dbo.Chapters");
             DropTable("dbo.Chapter_Resource");
             DropTable("dbo.Resources");
