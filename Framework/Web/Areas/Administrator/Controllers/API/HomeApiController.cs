@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace Web.Areas.Administrator.Controllers.WEB
+namespace Web.Areas.Administrator.Controllers.API
 {
     public class HomeApiController : Controller
     {

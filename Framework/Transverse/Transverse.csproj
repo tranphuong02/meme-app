@@ -188,6 +188,9 @@
     <Compile Include="Interfaces\DAL\IDatabaseMigrationsRepository.cs" />
     <Compile Include="Interfaces\DAL\IDbContext.cs" />
     <Compile Include="Interfaces\DAL\IRepository.cs" />
+    <Compile Include="Models\Business\Account\LoginViewModel.cs" />
+    <Compile Include="Models\Business\Account\PrincipalSerializeViewModel.cs" />
+    <Compile Include="Models\Business\Account\PrincipalViewModel.cs" />
     <Compile Include="Models\Business\BaseModel.cs" />
     <Compile Include="Models\DAL\Author.cs" />
     <Compile Include="Models\DAL\BaseModel.cs" />

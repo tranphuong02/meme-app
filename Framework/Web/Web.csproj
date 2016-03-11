@@ -209,7 +209,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Administrator\Controllers\API\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -220,7 +219,9 @@
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Administrator\AdministratorAreaRegistration.cs" />
-    <Compile Include="Areas\Administrator\Controllers\WEB\HomeApiController.cs" />
+    <Compile Include="Areas\Administrator\Controllers\API\HomeApiController.cs" />
+    <Compile Include="Areas\Administrator\Controllers\WEB\AccountController.cs" />
+    <Compile Include="Areas\Administrator\Controllers\WEB\BaseController.cs" />
     <Compile Include="Areas\Administrator\Controllers\WEB\HomeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -951,6 +952,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Administrator\Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Administrator\Views\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Administrator\Views\Account\Login.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Administrator\Views\Shared\_NologinLayout.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

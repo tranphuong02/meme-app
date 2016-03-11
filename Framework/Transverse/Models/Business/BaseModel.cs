@@ -22,5 +22,34 @@
         /// Data of API
         /// </summary>
         public object Data { get; set; }
+
+        public BaseModel()
+        {
+            
+        }
+
+        public BaseModel(bool isSuccess, int errorCode,string message = "", object data = null)
+        {
+            IsSuccess = isSuccess;
+            ErrorCode = errorCode;
+            Message = message;
+            Data = data;
+        }
+
+        public BaseModel(bool isSuccess, int errorCode, string message = "")
+        {
+            IsSuccess = isSuccess;
+            ErrorCode = errorCode;
+            Message = message;
+            Data = null;
+        }
+
+        public BaseModel(bool isSuccess, int errorCode, object data = null)
+        {
+            IsSuccess = isSuccess;
+            ErrorCode = errorCode;
+            Message = "";
+            Data = data;
+        }
     }
 }

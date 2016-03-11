@@ -6,13 +6,23 @@ namespace Transverse
 {
     public static class Constants
     {
+        public const string AppName = "Meme App";
+
         public static readonly int MaxFileSize = 4 * 1000 * 1024;
 
         public static readonly string MaxFileSizeErroMessage = "Maximum file size allow is 4MB";
 
         public const string DefaultImage = "Content/Images/def_img.png";
 
+        public const string AllText = "All";
+
         public const int AllValue = -1;
+
+        public const string AdminArea = "Administrator";
+
+        public const string AdminLayout = "~/Areas/Administrator/Views/Shared/_AdminLayout.cshtml";
+
+        public const string NologinLayout = "~/Areas/Administrator/Views/Shared/_NologinLayout.cshtml";
 
         public static class ResourcePath
         {
@@ -149,6 +159,8 @@ namespace Transverse
             /// Define the invalid status message for deal/coupon
             /// </summary>
             public const string IvalidStatus = "Invalid status. Your {0} {1} was edited by another checker or manager. Please refresh page and try again!";
+
+            public const string InvalidLogin = "Username and password is invalid.";
         }
 
         public class RoleName
