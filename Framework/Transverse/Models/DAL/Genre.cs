@@ -9,11 +9,14 @@ namespace Transverse.Models.DAL
         public string Url { get; set; }
         public string Keyword { get; set; }
         public string Description { get; set; }
+        public int ViewCount { get; set; }
+
         [ForeignKey("Resource")]
         public int ResourceId { get; set; }
 
         // Helper Properties
         public virtual Resource Resource { get; set; }
-        public virtual ICollection<Category> Categories { get; set; }
+
+        public virtual ICollection<Genre_Category> GenreCategories { get; set; }
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Transverse.Models.DAL
@@ -6,6 +7,7 @@ namespace Transverse.Models.DAL
     {
         [ForeignKey("Role")]
         public int RoleId { get; set; }
+
         public string Email { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -16,5 +18,7 @@ namespace Transverse.Models.DAL
 
         // Helper Properties
         public virtual Role Role { get; set; }
+
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }

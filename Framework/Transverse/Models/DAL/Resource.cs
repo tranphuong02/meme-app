@@ -10,5 +10,7 @@ namespace Transverse.Models.DAL
         public int Type { get; set; }
 
         public virtual ICollection<Genre> Genres { get; set; }
+        public virtual ICollection<Author> Authors { get; set; }
+        public virtual ICollection<Chapter_Resource> ChapterResources { get; set; }
     }
 }

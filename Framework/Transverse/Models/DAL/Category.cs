@@ -23,5 +23,6 @@ namespace Transverse.Models.DAL
         public virtual Author Author { get; set; }
 
         public virtual ICollection<Review> Reviews { get; set; }
+        public virtual ICollection<Genre_Category> GenreCategories { get; set; }
     }
 }

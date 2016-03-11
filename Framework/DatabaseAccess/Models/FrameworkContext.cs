@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using Transverse.Interfaces.DAL;
+using Transverse.Models.DAL;
 
 namespace DatabaseAccess.Models
 {
@@ -36,7 +37,18 @@ namespace DatabaseAccess.Models
             this.Configuration.LazyLoadingEnabled = true;
         }
 
-        //public DbSet<Category> Categories { get; set; }
+        public DbSet<Author> Author { get; set; }
+        public DbSet<Category> Category { get; set; }
+        public DbSet<Chapter> Chapter { get; set; }
+        public DbSet<Chapter_Resource> Chapter_Resource { get; set; }
+        public DbSet<Config> Config { get; set; }
+        public DbSet<Genre> Genre { get; set; }
+        public DbSet<Genre_Category> Genre_Category { get; set; }
+        public DbSet<Menu> Menu { get; set; }
+        public DbSet<Resource> Resource { get; set; }
+        public DbSet<Review> Review { get; set; }
+        public DbSet<Role> Role { get; set; }
+        public DbSet<User> User { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -79,7 +91,7 @@ namespace DatabaseAccess.Models
 
         public IEnumerable<TElement> SqlQuery<TElement>(string sql, params object[] parameters)
         {
-            IEnumerable<TElement> listData = this.Database.SqlQuery<TElement>(sql, parameters);
+            IEnumerable<TElement> listData = Database.SqlQuery<TElement>(sql, parameters);
             return listData;
         }
 
@@ -96,7 +108,7 @@ namespace DatabaseAccess.Models
             var transactionalBehavior = doNotEnsureTransaction
                 ? TransactionalBehavior.DoNotEnsureTransaction
                 : TransactionalBehavior.EnsureTransaction;
-            var result = this.Database.ExecuteSqlCommand(transactionalBehavior, sql, parameters);
+            var result = Database.ExecuteSqlCommand(transactionalBehavior, sql, parameters);
 
             if (timeout.HasValue)
             {
@@ -104,7 +116,6 @@ namespace DatabaseAccess.Models
                 ((IObjectContextAdapter)this).ObjectContext.CommandTimeout = previousTimeout;
             }
 
-            //return result
             return result;
         }
     }

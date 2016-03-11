@@ -180,6 +180,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UserBusiness.cs" />
+    <Compile Include="RoleBusiness.cs" />
+    <Compile Include="ReviewBusiness.cs" />
+    <Compile Include="ResourceBusiness.cs" />
+    <Compile Include="MenuBusiness.cs" />
+    <Compile Include="GenreCategoryBusiness.cs" />
+    <Compile Include="GenreBusiness.cs" />
+    <Compile Include="ConfigBusiness.cs" />
+    <Compile Include="ChapterResourceBusiness.cs" />
+    <Compile Include="ChapterBusiness.cs" />
+    <Compile Include="CategoryBusiness.cs" />
+    <Compile Include="AuthorBusiness.cs" />
     <Compile Include="DatabaseMigrations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
