@@ -167,8 +167,9 @@ namespace Transverse
         {
             public const string SupperAdmin = "SupperAdmin";
             public const string Admin = "Admin";
-            public const string Mod = "Mod";
-            public const string Writer = "Writer";
+            public const string Moderator = "Moderator";
+            public const string User = "User";
+            public const string Customer = "Customer";
         }
     }
 }

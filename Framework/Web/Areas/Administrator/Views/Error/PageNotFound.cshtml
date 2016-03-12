@@ -1,0 +1,25 @@
+﻿@using Transverse
+@{
+    ViewBag.Title = "Error";
+    Layout = Constants.NologinLayout;
+}
+
+<div>
+    <br />
+    <br />
+    <div class="jumbotron page-header">
+        <h1 class="no-margin">@ViewBag.Title</h1>
+        <br />
+        <p>
+            We're sorry, we can't find that page
+            <br />
+            It's possible you typed the address incorrectly or that the page you were looking for has been moved or no longer exists.
+            <br />
+            Thank you for your patience.
+        </p>
+        <a href="@Url.Action("Index", "Home")" class="btn btn-primary">
+            <span class="glyphicon glyphicon-home"></span>
+            Back To Home Page
+        </a>
+    </div>
+</div>

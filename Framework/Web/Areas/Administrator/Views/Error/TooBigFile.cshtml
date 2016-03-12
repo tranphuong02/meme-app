@@ -1,0 +1,25 @@
+﻿@using Transverse
+@{
+    ViewBag.Title = "Error";
+    Layout = Constants.NologinLayout;
+}
+
+<div>
+    <br />
+    <br />
+    <div class="jumbotron page-header">
+        <h1 class="no-margin">@ViewBag.Title</h1>
+        <br />
+        <p>
+            We're sorry, we can't upload your file
+            <br />
+            It's larger than 50MB. Please choice another file to upload
+            <br />
+            Thank you for your patience.
+        </p>
+        <a href="@Url.Action("Index", "Home")" class="btn btn-primary">
+            <span class="glyphicon glyphicon-home"></span>
+            Back To Home Page
+        </a>
+    </div>
+</div>

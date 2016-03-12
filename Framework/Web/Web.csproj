@@ -48,6 +48,18 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="CaptchaMvc, Version=2.5.0.0, Culture=neutral, PublicKeyToken=fe46ad421dd3b0e6, processorArchitecture=MSIL">
+      <HintPath>..\packages\CaptchaMvc.Mvc5.1.5.0\lib\net45-full\CaptchaMvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Elmah, Version=1.2.13605.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\elmah.corelibrary.1.2\lib\Elmah.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Elmah.Mvc, Version=2.1.2.1389, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Elmah.Mvc.2.1.2\lib\net40\Elmah.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
     </Reference>
@@ -222,6 +234,8 @@
     <Compile Include="Areas\Administrator\Controllers\API\HomeApiController.cs" />
     <Compile Include="Areas\Administrator\Controllers\WEB\AccountController.cs" />
     <Compile Include="Areas\Administrator\Controllers\WEB\BaseController.cs" />
+    <Compile Include="Areas\Administrator\Controllers\WEB\EmailController.cs" />
+    <Compile Include="Areas\Administrator\Controllers\WEB\ErrorController.cs" />
     <Compile Include="Areas\Administrator\Controllers\WEB\HomeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -232,9 +246,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\admin.css">
+      <DependentUpon>admin.less</DependentUpon>
+    </Content>
+    <Content Include="Content\admin.min.css">
+      <DependentUpon>admin.css</DependentUpon>
+    </Content>
     <Content Include="Content\animate.css" />
+    <Content Include="Content\animate.min.css">
+      <DependentUpon>animate.css</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\ladda.css" />
+    <Content Include="Content\ladda.min.css">
+      <DependentUpon>ladda.css</DependentUpon>
+    </Content>
     <Content Include="Content\plugins\awesome-bootstrap-checkbox\awesome-bootstrap-checkbox.css" />
     <Content Include="Content\plugins\blueimp\css\blueimp-gallery.min.css" />
     <Content Include="Content\plugins\blueimp\img\error.png" />
@@ -654,6 +680,9 @@
     <Content Include="Content\plugins\switchery\switchery.css" />
     <Content Include="Content\plugins\toastr\toastr.min.css" />
     <Content Include="Content\style.css" />
+    <Content Include="Content\style.min.css">
+      <DependentUpon>style.css</DependentUpon>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\font-awesome\css\font-awesome.min.css" />
     <Content Include="fonts\font-awesome\fonts\fontawesome-webfonte0a5.svg" />
@@ -961,6 +990,32 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Administrator\Views\Shared\_NologinLayout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\admin.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\admin.css.map">
+      <DependentUpon>admin.css</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Administrator\Views\Error\Index.cshtml" />
+    <Content Include="Areas\Administrator\Views\Error\PageNotFound.cshtml" />
+    <Content Include="Areas\Administrator\Views\Error\TooBigFile.cshtml" />
+    <Content Include="Areas\Administrator\Views\Error\UrlInvalid.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Administrator\Views\Email\EmailForgotPassword.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Administrator\Views\Email\EmailAdminResetPasswordForUser.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Administrator\Views\Account\ForgotPassword.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Administrator\Views\Account\ResetPassword.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

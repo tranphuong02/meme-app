@@ -13,6 +13,9 @@ using System.Web.Management;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Web.Security;
+using Newtonsoft.Json;
+using Transverse.Models.Business.Account;
 using Transverse.Utils.ModelBinders;
 using Web.Models;
 using UnityDependencyResolver = Framework.DI.Unity.UnityDependencyResolver;
@@ -110,6 +113,29 @@ namespace Web
             ModelBinders.Binders.Add(typeof(IDataTablesRequest), new DataTablesBinder());
             ModelBinders.Binders.Add(typeof(DateTime), new DateTimeModelBinder());
             ModelBinders.Binders.Add(typeof(DateTime?), new DateTimeModelBinder());
+        }
+
+        protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
+        {
+            var authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+            if (authCookie == null)
+            {
+                return;
+            }
+
+            var authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+
+            var serializeModel = JsonConvert.DeserializeObject<PrincipalSerializeViewModel>(authTicket.UserData);
+            var newUser = new PrincipalViewModel(authTicket.Name)
+            {
+                Id = serializeModel.Id,
+                FirstName = serializeModel.FirstName,
+                LastName = serializeModel.LastName,
+                Email = serializeModel.Email,
+                Role = serializeModel.Role
+            };
+
+            HttpContext.Current.User = newUser;
         }
     }
 }

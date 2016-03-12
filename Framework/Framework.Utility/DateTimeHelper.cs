@@ -90,5 +90,10 @@ namespace Framework.Utility
                 return null;
             }
         }
+
+        public static DateTime UTCNow()
+        {
+            return DateTime.UtcNow;
+        }
     }
 }

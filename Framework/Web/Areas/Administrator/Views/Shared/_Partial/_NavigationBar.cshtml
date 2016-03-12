@@ -1,4 +1,6 @@
 ﻿@using Framework.Utility
+@using Transverse.Utils
+@using Constants = Transverse.Constants
 <nav class="navbar-default navbar-static-side animated fadeInLeft" role="navigation">
     <div class="sidebar-collapse">
         <ul class="nav metismenu" id="side-menu">
@@ -10,8 +12,8 @@
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="clear">
                             <span class="block m-t-xs">
-                                <strong class="font-bold">Framework</strong>
-                            </span> <span class="text-muted text-xs block">@User.Identity.Name <b class="caret"></b></span>
+                                <strong class="font-bold">@Constants.AppName</strong>
+                            </span> <span class="text-muted text-xs block">@BackendHelpers.CurrentUserName() <b class="caret"></b></span>
                         </span>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">

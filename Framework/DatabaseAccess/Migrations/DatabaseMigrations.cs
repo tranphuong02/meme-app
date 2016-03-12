@@ -3,7 +3,12 @@ using System;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Migrations.Infrastructure;
+using System.Linq;
+using Framework.Utility;
 using Transverse.Interfaces.DAL;
+using Transverse.Models.DAL;
+using Transverse.Utils;
+using Constants = Transverse.Constants;
 
 namespace DatabaseAccess.Migrations
 {
@@ -52,9 +57,66 @@ namespace DatabaseAccess.Migrations
             }
         }
 
-        private void InitialData(FrameworkContext context)
+        private static void InitialData(FrameworkContext context)
         {
-            //context.SaveChanges();
+            InitRoles(context);
+            InitUsers(context);
+
+            
+        }
+
+        private static void InitRoles(FrameworkContext context)
+        {
+            var admin = new Role
+            {
+                Name = Constants.RoleName.Admin,
+                Description = Constants.RoleName.Admin,
+                IsDeleted = false,
+                CreatedDate = DateTimeHelper.UTCNow()
+            };
+            var moderator = new Role
+            {
+                Name = Constants.RoleName.Moderator,
+                Description = Constants.RoleName.Moderator,
+                IsDeleted = false,
+                CreatedDate = DateTimeHelper.UTCNow()
+            };
+            var user = new Role
+            {
+                Name = Constants.RoleName.User,
+                Description = Constants.RoleName.User,
+                IsDeleted = false,
+                CreatedDate = DateTimeHelper.UTCNow()
+            };
+            var customer = new Role
+            {
+                Name = Constants.RoleName.Customer,
+                Description = Constants.RoleName.Customer,
+                IsDeleted = false,
+                CreatedDate = DateTimeHelper.UTCNow()
+            };
+
+            context.Role.AddOrUpdate(x => x.Name, admin, moderator, user, customer);
+            context.SaveChanges();
+        }
+
+        private static void InitUsers(FrameworkContext context)
+        {
+            var admin = new User
+            {
+                RoleId = context.Role.First(x => x.IsDeleted == false && x.Name == Constants.RoleName.Admin).Id,
+                Email = BackendHelpers.AdminEmail(),
+                FirstName = Constants.RoleName.Admin,
+                LastName = Constants.AppName,
+                PasswordHash = BackendHelpers.AdminPasswordHash(),
+                PasswordSalt = BackendHelpers.AdminPasswordSalt(),
+                IsActive = true,
+                IsDeleted = false,
+                CreatedDate = DateTimeHelper.UTCNow()
+            };
+
+            context.User.AddOrUpdate(x => x.Email, admin);
+            context.SaveChanges();
         }
     }
 }

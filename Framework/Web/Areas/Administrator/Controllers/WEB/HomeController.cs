@@ -2,10 +2,8 @@
 
 namespace Web.Areas.Administrator.Controllers.WEB
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        //
-        // GET: /Administrator/Home/
         public ActionResult Index()
         {
             return View();
