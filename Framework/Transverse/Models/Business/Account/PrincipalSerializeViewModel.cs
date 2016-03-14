@@ -8,7 +8,7 @@ namespace Transverse.Models.Business.Account
         {
             
         }
-        public PrincipalSerializeViewModel(User user)
+        public PrincipalSerializeViewModel(DAL.User user)
         {
             Id = user.Id;
             Email = user.Email;

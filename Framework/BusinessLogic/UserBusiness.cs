@@ -1,12 +1,17 @@
 ﻿using Framework.Logger.Log4Net;
 using Microsoft.Practices.Unity;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using Framework.Datatable.RequestBinder;
+using Framework.Datatable.RequestParser;
 using Framework.Utility;
+using Transverse.Enums;
 using Transverse.Interfaces.Business;
 using Transverse.Interfaces.DAL;
 using Transverse.Models.Business.Account;
+using Transverse.Models.Business.User;
 using Transverse.Models.DAL;
 using Transverse.Utils;
 using BaseModel = Transverse.Models.Business.BaseModel;
@@ -35,11 +40,11 @@ namespace BusinessLogic
                     var supperAdmin = new User
                     {
                         Email = BackendHelpers.SuperAdminEmail(),
-                        FirstName = Constants.RoleName.SupperAdmin,
+                        FirstName = Constants.RoleName.SuperAdmin,
                         LastName = Constants.AppName,
                         Role = new Role
                         {
-                            Name = Constants.RoleName.SupperAdmin
+                            Name = Constants.RoleName.SuperAdmin
                         }
                     };
 
@@ -143,9 +148,59 @@ namespace BusinessLogic
             }
         }
 
+        public DataTablesResponse GetList(IDataTablesRequest dataTableParam, UserSearchViewModel searchViewModel)
+        {
+            try
+            {
+                var query = UserRepository.GetAll(x => x.IsDeleted == false, null, x => x.Role);
+
+                if (searchViewModel.ActiveType != (int)ActiveType.All)
+                {
+                    switch (searchViewModel.ActiveType)
+                    {
+                        case (int)ActiveType.Active:
+                            {
+                                query = query.Where(x => x.IsActive);
+                                break;
+                            }
+
+                        case (int)ActiveType.InActive:
+                            {
+                                query = query.Where(x => !x.IsActive);
+                                break;
+                            }
+                    }
+                }
+
+                if (searchViewModel.RoleName != Constants.AllValue.ToString())
+                {
+                    query = query.Where(x => x.Role.Name == searchViewModel.RoleName);
+                }
+
+                var dataTableHelper = new DataTableHelper<UserViewModel, User>(query, x => new UserViewModel
+                {
+                    Id = x.Id,
+                    Email = x.Email,
+                    FullName = x.FirstName + " " + x.LastName,
+                    Role = x.Role.Name,
+                    IsActive = x.IsActive
+                });
+
+                var entities = dataTableHelper.GetDataVMForResponse(dataTableParam);
+                var result = dataTableHelper.GetDataToList(dataTableParam, entities);
+
+                return new DataTablesResponse(dataTableParam.Draw, result, entities.Count(), entities.Count());
+            }
+            catch (Exception ex)
+            {
+                Provider.Instance.LogError(ex);
+                return new DataTablesResponse(dataTableParam.Draw, new List<UserViewModel>(), 0, 0);
+            }
+        }
+
         private BaseModel UserNotFound()
         {
-            return new BaseModel(false, (int) HttpStatusCode.BadRequest, @"Could not found user.");
+            return new BaseModel(false, (int)HttpStatusCode.BadRequest, @"Could not found user.");
         }
     }
 }

@@ -1,0 +1,182 @@
+﻿@using Transverse
+@using Transverse.Enums
+
+@{
+    ViewBag.Title = "User Management";
+    ViewBag.BodyHeader = "User Management";
+    Layout = Constants.AdminLayout;
+}
+
+@section styles{
+    <link href="~/Content/plugins/switchery/switchery.css" rel="stylesheet">
+    <link href="~/Content/plugins/chosen/chosen.css" rel="stylesheet">
+    <link href="~/Content/plugins/dataTables_V1/css/dataTables.bootstrap.css" rel="stylesheet" />
+}
+@section scripts{
+    <script src="~/Scripts/plugins/switchery/switchery.js"></script>
+    <script src="~/Scripts/plugins/chosen/chosen.jquery.js"></script>
+    <script src="~/Scripts/plugins/dataTables_V1/jquery.dataTables.js"></script>
+    <script src="~/Scripts/plugins/dataTables_V1/dataTables.bootstrap.js"></script>
+
+    <script>
+        var $oTable,
+            $dataTableBox,
+            $dataTable;
+        $(document).ready(function () {
+            // Variables
+            $dataTableBox = $('.data-table-box');
+            $dataTable = $('.data-table');
+
+            // Load datatable data
+            $oTable = $dataTable.DataTable({
+                ajax: {
+                    url: commonUrl.getUserList,
+                    type: httpMethod().POST,
+                    data: function (d) {
+                        return $.extend({}, d, {
+                            "RoleName": $("#filterByRole").val() == undefined ? '@Constants.AllValue' : $("#filterByRole").val(),
+                            "ActiveType": $("#filterByStatus").val() == undefined ? '@Constants.AllValue' : parseInt($("#filterByStatus").val())
+                        });
+                    }
+                },
+                processing: true,
+                bStateSave: false,
+                serverSide: true,
+                bSortCellsTop: true,
+                sDom: "Rlfrtip",
+                bFilter: true,
+                "columnDefs": [{ "targets": [4], "orderable": false }],
+                "order": [[0, "desc"]],
+                "columns": [
+                     {
+                         "data": "Email",
+                         "className": "text-left"
+                     },
+                     {
+                         "data": "FullName",
+                         "className": "text-left"
+                     },
+                     {
+                         "data": "Role",
+                         "render": function (d) {
+                             return '<span class="label label-primary">' + d + '</span>';
+                         },
+                         "className": "text-left"
+                     },
+                    {
+                        "data": "IsActive",
+                        "render": function (d) {
+                            var html = '<span class="label label-primary">Active</span>';
+                            if (!d) {
+                                html = '<span class="label label-primary">InActive</span>';
+                            }
+                            return html;
+                        },
+                        "className": "text-left"
+                    },
+                    {
+                        "data": function (d) {
+                            return d;
+                        },
+                        "render": function (d) {
+                            var html = "";
+                            html += '<a href="@Url.Action("Edit","User", new{area=Constants.AdminArea})/' + d.Id + '"  onclick="LoadingEnable()" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Edit user"><i class="fa fa-pencil-square-o"></i></a>&nbsp;';
+                            return html;
+                        },
+                        "className": "text-center"
+                    }
+                ],
+                "initComplete": function (settings, json) {
+                    customFilterByRole();
+                    customFilterByStatus();
+                },
+                "oColReorder": {
+                    "iFixedColumns": 1
+                },
+                "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+
+                },
+                "fnDrawCallback": function (oSettings) {
+                    selectRowDatatableEffect($dataTable, $oTable);
+                }
+            });
+
+            // Listener
+            $dataTable.on("processing.dt", function (e, settings, processing) {
+                if (processing) {
+                    $dataTable.find("tbody input").attr("disabled", true);
+                } else {
+                    $dataTable.find("tbody input").removeAttr("disabled");
+                }
+            });
+        });
+
+        function customFilterByRole() {
+            var filter = '<span><strong>Role:</strong> </span>&nbsp;<select class="form-control input-sm m-r-sm padding-top-zero" id="filterByRole">' +
+                                '<option value="@Constants.AllValue" selected="selected">@Constants.AllText</option>' +
+                                '<option value="@Constants.RoleName.Admin">@Constants.RoleName.Admin</option>' +
+                                '<option value="@Constants.RoleName.Moderator">@Constants.RoleName.Moderator</option>' +
+                                '<option value="@Constants.RoleName.User">@Constants.RoleName.User</option>' +
+                                '<option value="@Constants.RoleName.Customer">@Constants.RoleName.Customer</option>' +
+                                    "</select>";
+
+            $(filter).prependTo(".data-table-box div.dataTables_filter");
+
+            $("#filterByRole").on("change", function () {
+                reloadDatatable($oTable);
+            });
+        }
+
+        function customFilterByStatus() {
+            var filter = '<span><strong>Role:</strong> </span>&nbsp;<select class="form-control input-sm m-r-sm padding-top-zero" id="filterByStatus">' +
+                                '<option value="@Constants.AllValue" selected="selected">@Constants.AllText</option>' +
+                                '<option value="@((int)ActiveType.Active)">@ActiveType.Active.ToString()</option>' +
+                                '<option value="@((int)ActiveType.InActive)">@ActiveType.InActive.ToString()</option>' +
+                                "</select>";
+
+            $(filter).prependTo(".data-table-box div.dataTables_filter");
+
+            $("#filterByStatus").on("change", function () {
+                reloadDatatable($oTable);
+            });
+        }
+    </script>
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>User List</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div>
+                    <a href="@Url.Action("Add", "User", new {area = Constants.AdminArea})" class="btn btn-primary " onclick="LoadingEnable()">
+                        <i class="fa fa-plus-circle"></i>
+                        Add new user
+                    </a>
+                </div>
+                <br />
+                <div class="table-responsive data-table-box">
+                    <table class="table table-striped table-bordered table-hover data-table" style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th class="col-lg-4">Email</th>
+                                <th class="col-lg-4">Full Name</th>
+                                <th class="col-lg-2">Role</th>
+                                <th class="col-lg-1">Status</th>
+                                <th class="col-lg-1">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

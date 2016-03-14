@@ -195,6 +195,9 @@
     <Compile Include="Models\Business\Account\ResetPasswordViewModel.cs" />
     <Compile Include="Models\Business\Account\SendMailInfoViewModel.cs" />
     <Compile Include="Models\Business\BaseModel.cs" />
+    <Compile Include="Models\Business\User\UserAddViewModel.cs" />
+    <Compile Include="Models\Business\User\UserSearchViewModel.cs" />
+    <Compile Include="Models\Business\User\UserViewModel.cs" />
     <Compile Include="Models\DAL\Author.cs" />
     <Compile Include="Models\DAL\BaseModel.cs" />
     <Compile Include="Models\DAL\Category.cs" />

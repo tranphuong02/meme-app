@@ -237,6 +237,7 @@
     <Compile Include="Areas\Administrator\Controllers\WEB\EmailController.cs" />
     <Compile Include="Areas\Administrator\Controllers\WEB\ErrorController.cs" />
     <Compile Include="Areas\Administrator\Controllers\WEB\HomeController.cs" />
+    <Compile Include="Areas\Administrator\Controllers\WEB\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -694,6 +695,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\common.js" />
     <Content Include="Scripts\date.format.js" />
+    <Content Include="Scripts\extend.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-ui-1.10.4.min.js" />
     <Content Include="Scripts\ladda.min.js" />
@@ -1016,6 +1018,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Administrator\Views\Account\ResetPassword.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Administrator\Views\User\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Administrator\Views\Shared\_Partial\_Variables.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Administrator\Views\User\Add.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

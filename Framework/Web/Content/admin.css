@@ -17,7 +17,7 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
   display: none;
 }
-.form-control:focus {
-  border: 1px solid #b94a48 !important;
-}
+/*.form-control:focus{
+        border: 1px solid #b94a48 !important;
+}*/
 /*# sourceMappingURL=admin.css.map */

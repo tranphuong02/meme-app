@@ -33,17 +33,12 @@
             <!-- Menu content -->
             <!-- Single Menu -->
             <li class="menu-item @Html.ActivePage("Statistics", "", "active") @Html.ActivePage("Home", "", "active")">
-                <a href="@Url.Action("Index", "Statistics")"><i class="fa fa-dashboard"></i> <span class="nav-label">Dashboard</span></a>
+                <a href="@Url.Action("Index", "Home")"><i class="fa fa-dashboard"></i> <span class="nav-label">Dashboard</span></a>
             </li>
 
             <li class="menu-item @Html.ActivePage("UserManagement", "", "active")">
-                <a href="@Url.Action("Index", "UserManagement")"><i class="fa fa-user"></i> <span class="nav-label">User Management</span></a>
+                <a href="@Url.Action("Index", "User")"><i class="fa fa-user"></i> <span class="nav-label">User Management</span></a>
             </li>
-
-            <li class="menu-item @Html.ActivePage("History", "", "active")">
-                <a href="@Url.Action("Index", "History")"><i class="fa fa-history"></i> <span class="nav-label">User Activity</span></a>
-            </li>
-            }
         </ul>
     </div>
 </nav>

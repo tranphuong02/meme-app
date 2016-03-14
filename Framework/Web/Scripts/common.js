@@ -74,18 +74,6 @@ function commonVariables() {
     };
 }
 
-function processCode() {
-    /// <summary>
-    /// Process code for deal and coupon
-    /// </summary>
-    return {
-        draft: 1,
-        pending: 2,
-        reject: 3,
-        aprrove: 4
-    }
-}
-
 function httpMethod() {
     return {
         POST: "POST",
@@ -132,7 +120,7 @@ function datatableToolkitUrl() {
 function dateTimeFormatConstant() {
     return {
         getFullDateTimeFormat: "dd/mm/yyyy hh:MM:ss TT",
-        dateTimeFormat: "dd/mm/yyyy",
+        dateTimeFormat: "dd/mm/yyyy"
     }
 }
 
@@ -324,135 +312,25 @@ function renderAllOptionOutlet($element) {
     $element.append($all);
 }
 
-function changeTcUrl($tcUrl, $viewTcUrl) {
-    if ($.trim($tcUrl.val()) === "" || $tcUrl.val() == null) {
-        $viewTcUrl.addClass('disabled');
-    } else {
-        $viewTcUrl.removeClass('disabled');
-    }
-}
-
-function deleteSuccessCallback(result) {
-    swal({
-        title: "Delete success",
-        text: result.message,
-        type: "success",
-        timer: commonVariables().autoCloseTimer
-    });
-}
-
-
-function deleteSuccessOutletCallback(result) {
-    swal({
-        title: "Delete success",
-        text: result.Message,
-        type: "success",
-        timer: commonVariables().autoCloseTimer
-    });
-}
-
-function sendSuccessCallback(result) {
-    swal({
-        title: "Send success",
-        text: result.message,
-        type: "success",
-        timer: commonVariables().autoCloseTimer
-    });
-}
-
-function rejectSuccessCallback(result) {
-    swal({
-        title: "Reject success",
-        text: result.message,
-        type: "success",
-        timer: commonVariables().autoCloseTimer
-    });
-}
-
-function approveSuccessCallback(result) {
-    swal({
-        title: "Approve success",
-        text: result.message,
-        type: "success",
-        timer: commonVariables().autoCloseTimer
-    });
-}
-
-function reOpenSuccessCallback(result) {
-    swal({
-        title: "Re-open success",
-        text: result.message,
-        type: "success",
-        timer: commonVariables().autoCloseTimer
-    });
-}
-
-function deleteFailCallback(result) {
-    swal({
-        title: "Delete fail",
-        text: result.message,
-        type: "error",
-        timer: commonVariables().autoCloseTimer
-    });
-}
-
-function deleteFailOutletCallback(result) {
-    swal({
-        title: "Delete fail",
-        text: result.Message,
-        type: "error",
-        timer: commonVariables().autoCloseTimer
-    });
-}
-
-function sendFailCallback(result) {
-    swal({
-        title: "Send fail",
-        text: result.message,
-        type: "error",
-        timer: commonVariables().autoCloseTimer
-    });
-}
-
-function rejectFailCallback(result) {
-    swal({
-        title: "Reject fail",
-        text: result.message,
-        type: "error",
-        timer: commonVariables().autoCloseTimer
-    });
-}
-
-function approveFailCallback(result) {
-    swal({
-        title: "Approve fail",
-        text: result.message,
-        type: "error",
-        timer: commonVariables().autoCloseTimer
-    });
-}
-
-function reOpenFailCallback(result) {
-    swal({
-        title: "Re-open fail",
-        text: result.message,
-        type: "error",
-        timer: commonVariables().autoCloseTimer
-    });
-}
-
-function cancelCallback(message) {
-    swal({
-        title: "Cancelled",
-        text: message,
-        type: "error",
-        timer: commonVariables().autoCloseTimer
-    });
-}
-
 function renderTooltopDateTime(data) {
     
     var fullDateTime = new Date(parseInt(data.substr(6))).format(dateTimeFormatConstant().getFullDateTimeFormat);
     var dateTime = new Date(parseInt(data.substr(6))).format(dateTimeFormatConstant().dateTimeFormat);
     return '<span><span data-toggle="tooltip" data-placement="right" title="" data-original-title="' + fullDateTime + '">' + dateTime + '</span></span>';
+}
+
+function selectRowDatatableEffect($dataTable, $oTable) {
+    $dataTable.find("tbody tr").live("click", function (e) {
+        e.stopImmediatePropagation();
+        if ($(this).hasClass("selected-row")) {
+        } else {
+            $oTable.$("tr.selected-row").removeClass("selected-row");
+            $(this).addClass("selected-row");
+        }
+    });
+}
+
+
+function reloadDatatable($oTable) {
+    $oTable.ajax.reload(null, false);
 }
