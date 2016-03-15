@@ -20,6 +20,8 @@ namespace Transverse
 
         public const string AdminArea = "Administrator";
 
+        public const string DefaultPassword = "pass1234";
+
         public const string AdminLayout = "~/Areas/Administrator/Views/Shared/_AdminLayout.cshtml";
 
         public const string NologinLayout = "~/Areas/Administrator/Views/Shared/_NologinLayout.cshtml";
@@ -63,12 +65,12 @@ namespace Transverse
             /// <summary>
             /// Define the success to create message
             /// </summary>
-            public const string SuccessToCreate = "This {0} has been created successfully";
+            public const string SuccessToAdd = "This {0} has been added successfully";
 
             /// <summary>
             /// Define the fail to create message
             /// </summary>
-            public const string FailToCreate = "This {0} has been create unsuccessfully";
+            public const string FailToAdd = "This {0} has been added unsuccessfully";
 
             /// <summary>
             /// Define the success to edit message
@@ -148,7 +150,7 @@ namespace Transverse
             /// <summary>
             /// Define the is not exists message
             /// </summary>
-            public const string IsNotExists = "{0} does not exist";
+            public const string IsNotExists = "This {0} does not exist";
 
             /// <summary>
             /// Define the exists message

@@ -1,12 +1,12 @@
-﻿using Framework.Logger.Log4Net;
+﻿using Framework.Datatable.RequestBinder;
+using Framework.Datatable.RequestParser;
+using Framework.Logger.Log4Net;
+using Framework.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using Framework.Datatable.RequestBinder;
-using Framework.Datatable.RequestParser;
-using Framework.Utility;
 using Transverse.Enums;
 using Transverse.Interfaces.Business;
 using Transverse.Interfaces.DAL;
@@ -93,7 +93,7 @@ namespace BusinessLogic
             catch (Exception ex)
             {
                 Provider.Instance.LogError(ex);
-    
+
                 return new BaseModel(false, (int)HttpStatusCode.InternalServerError, ex.InnerException?.Message ?? ex.Message);
             }
         }
@@ -196,6 +196,98 @@ namespace BusinessLogic
                 Provider.Instance.LogError(ex);
                 return new DataTablesResponse(dataTableParam.Draw, new List<UserViewModel>(), 0, 0);
             }
+        }
+
+        public BaseModel Add(UserAddViewModel viewModel)
+        {
+            try
+            {
+                var isExistsEmail = UserRepository.Any(x => x.IsDeleted == false && x.Email == viewModel.Email);
+                if (isExistsEmail)
+                {
+                    return new BaseModel(false, (int)HttpStatusCode.BadRequest, string.Format(Constants.Message.IsExists, viewModel.Email));
+                }
+
+                var passwordSalt = BackendHelpers.CreateSaltKey();
+                var passwordHash = BackendHelpers.CreatePasswordHash(Constants.DefaultPassword, passwordSalt);
+                var user = new User
+                {
+                    Email = viewModel.Email,
+                    FirstName = viewModel.FirstName,
+                    LastName = viewModel.LastName,
+                    PasswordHash = passwordSalt,
+                    PasswordSalt = passwordHash,
+                    IsActive = viewModel.IsActive,
+                    RoleId = viewModel.RoleId,
+                    IsDeleted = false,
+                    CreatedDate = DateTimeHelper.UTCNow()
+                };
+
+                UserRepository.Insert(user);
+                DbContext.SaveChanges();
+
+                return new BaseModel(true, (int) HttpStatusCode.OK, string.Format(Constants.Message.SuccessToAdd, "user"));
+            }
+            catch (Exception ex)
+            {
+               Provider.Instance.LogError(ex);
+               return new BaseModel(false, (int)HttpStatusCode.InternalServerError, ex.InnerException?.Message ?? ex.Message);
+            }
+        }
+
+        public BaseModel Edit(UserEditViewModel viewModel, int id)
+        {
+            try
+            {
+                var user = UserRepository.GetById(id);
+                if (user == null || user.IsDeleted)
+                {
+                    return new BaseModel(false, (int) HttpStatusCode.BadRequest, string.Format(Constants.Message.IsNotExists, "user"));
+                }
+
+                var isExistsEmail = UserRepository.Any(x => x.IsDeleted == false && x.Email == viewModel.Email && x.Id != id);
+                if (isExistsEmail)
+                {
+                    return new BaseModel(false, (int)HttpStatusCode.BadRequest, string.Format(Constants.Message.IsExists, viewModel.Email));
+                }
+
+                user.Email = viewModel.Email;
+                user.FirstName = viewModel.FirstName;
+                user.LastName = viewModel.LastName;
+                user.IsActive = viewModel.IsActive;
+                user.RoleId = viewModel.RoleId;
+                user.ModifiedDate = DateTimeHelper.UTCNow();
+
+                UserRepository.Update(user);
+                DbContext.SaveChanges();
+
+                return new BaseModel(true, (int) HttpStatusCode.OK, string.Format(Constants.Message.SuccessToEdit, "user"));
+            }
+            catch (Exception ex)
+            {
+               Provider.Instance.LogError(ex);
+               return new BaseModel(false, (int)HttpStatusCode.InternalServerError, ex.InnerException?.Message ?? ex.Message);
+            }
+        }
+
+        public void InitAddViewModel(UserAddViewModel viewModel)
+        {
+            viewModel.Roles = RoleRepository.GetAll();
+        }
+
+        public void InitEditViewModel(UserEditViewModel viewModel, int id)
+        {
+            var user = UserRepository.GetById(id);
+            if (user == null || user.IsDeleted)
+            {
+                return;
+            }
+            viewModel.Email = user.Email;
+            viewModel.FirstName = user.FirstName;
+            viewModel.LastName = user.LastName;
+            viewModel.IsActive = user.IsActive;
+            viewModel.RoleId = user.RoleId;
+            viewModel.Roles = RoleRepository.GetAll();
         }
 
         private BaseModel UserNotFound()

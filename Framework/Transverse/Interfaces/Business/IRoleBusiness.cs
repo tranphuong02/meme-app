@@ -6,6 +6,6 @@ namespace Transverse.Interfaces.Business
 {
     public interface IRoleBusiness : IDependency
     {
-        IList<Role> GetAll();
+       
     }
 }

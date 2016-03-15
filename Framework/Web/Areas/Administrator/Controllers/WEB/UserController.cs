@@ -1,10 +1,11 @@
 ﻿using System.Web.Mvc;
 using Framework.Datatable.RequestBinder;
+using Framework.Utility;
 using Microsoft.Practices.Unity;
-using Transverse;
 using Transverse.Interfaces.Business;
 using Transverse.Models.Business.User;
 using Transverse.Security;
+using Constants = Transverse.Constants;
 
 namespace Web.Areas.Administrator.Controllers.WEB
 {
@@ -32,14 +33,56 @@ namespace Web.Areas.Administrator.Controllers.WEB
         public ActionResult Add()
         {
             var viewModel = new UserAddViewModel();
-            InitAdd(viewModel);
             return View(viewModel);
         }
 
-        // Helper Methods
-        private void InitAdd(UserAddViewModel viewModel)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Add(UserAddViewModel viewModel)
         {
-            viewModel.Roles = RoleBusiness.GetAll();
+            if (!ModelState.IsValid)
+            {
+                TempData.SetStatusMessage(GetModelErrorMessage(), UtilityEnum.StatusMessageType.Danger);
+                return View(viewModel);
+            }
+
+            var result = UserBusiness.Add(viewModel);
+            if (!result.IsSuccess)
+            {
+                TempData.SetStatusMessage(result.Message, UtilityEnum.StatusMessageType.Danger);
+                return View(viewModel);
+            }
+
+            TempData.SetStatusMessage(result.Message);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            var viewModel = new UserEditViewModel();
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(UserEditViewModel viewModel, int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData.SetStatusMessage(GetModelErrorMessage(), UtilityEnum.StatusMessageType.Danger);
+                return View(viewModel);
+            }
+
+            var result = UserBusiness.Edit(viewModel, id);
+            if (!result.IsSuccess)
+            {
+                TempData.SetStatusMessage(result.Message, UtilityEnum.StatusMessageType.Danger);
+                return View(viewModel);
+            }
+
+            TempData.SetStatusMessage(result.Message);
+            return RedirectToAction("Index");
         }
     }
 }

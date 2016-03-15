@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Framework.DI.Unity;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Transverse.Interfaces.Business;
 using Transverse.Models.DAL;
 
 namespace Transverse.Models.Business.User
@@ -24,8 +26,15 @@ namespace Transverse.Models.Business.User
         public bool IsActive { get; set; }
 
         [Display(Name = @"Role")]
+        [Required(ErrorMessage = @"Please choose a role")]
         public int RoleId { get; set; }
 
         public IList<Role> Roles { get; set; }
+
+        public void Init()
+        {
+            var userBusiness = IoCFactory.Instance.GetObjectInstance<IUserBusiness>();
+            userBusiness.InitAddViewModel(this);
+        }
     }
 }

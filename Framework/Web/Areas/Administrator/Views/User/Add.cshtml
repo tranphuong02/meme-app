@@ -4,22 +4,26 @@
 
 @{
     ViewBag.Title = "Add New User";
+    ViewBag.BodyHeader = "Add New User";
     Layout = Constants.AdminLayout;
+    
+    // Init model
+    Model.Init();
 }
 @section styles{
     <link href="~/Content/plugins/chosen/chosen.css" rel="stylesheet">
 }
 <div class="col-md-12">
-    <div class="col-xs-12">
-        @using (Html.BeginForm("Add", "User", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    <div class="col-md-8 col-xs-12">
+        @using (Html.BeginForm("Add", "User", FormMethod.Post, new { @class = "form-horizontal", role = "form", id="form" }))
         {
             @Html.AntiForgeryToken()
 
             <div class="form-horizontal">
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Email, new { @class = "col-sm-3 control-label" })
-                    <div class="col-sm-9">
-                        @Html.TextBoxFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email" } })
+                    @Html.LabelFor(model => model.Email, new { @class = "control-label col-sm-3 col-lg-2" })
+                    <div class="col-sm-9 col-lg-10">
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @placeholder = "Email" })
                         @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -27,9 +31,9 @@
 
             <div class="form-horizontal">
                 <div class="form-group">
-                    @Html.LabelFor(model => model.FirstName, new { @class = "col-sm-3 control-label" })
-                    <div class="col-sm-9">
-                        @Html.TextBoxFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @placeholder = "First name" } })
+                    @Html.LabelFor(model => model.FirstName, new { @class = "control-label col-sm-3 col-lg-2" })
+                    <div class="col-sm-9 col-lg-10">
+                        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", @placeholder = "First name" })
                         @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -37,9 +41,9 @@
 
             <div class="form-horizontal">
                 <div class="form-group">
-                    @Html.LabelFor(model => model.LastName, new { @class = "col-sm-3 control-label" })
-                    <div class="col-sm-9">
-                        @Html.TextBoxFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Last name" } })
+                    @Html.LabelFor(model => model.LastName, new { @class = "control-label col-sm-3 col-lg-2" })
+                    <div class="col-sm-9 col-lg-10">
+                        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", @placeholder = "Last name" })
                         @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -47,10 +51,9 @@
 
             <div class="form-horizontal">
                 <div class="form-group">
-                    @Html.LabelFor(model => model.RoleId, new { @class = "col-sm-3 control-label" })
-                    <div class="col-sm-9">
+                    @Html.LabelFor(model => model.RoleId, new { @class = "control-label col-sm-3 col-lg-2" })
+                    <div class="col-sm-9 col-lg-10">
                         <select name="RoleId" id="RoleId" class="form-control">
-                            <option value="">@Constants.AllText</option>
                             @if (Model.Roles != null && Model.Roles.Any())
                             {
                                 foreach (var role in Model.Roles)
@@ -66,8 +69,8 @@
 
             <div class="form-horizontal">
                 <div class="form-group">
-                    @Html.LabelFor(model => model.IsActive, new { @class = "col-sm-3 control-label" })
-                    <div class="col-sm-9">
+                    @Html.LabelFor(model => model.IsActive, new { @class = "control-label col-sm-3 col-lg-2" })
+                    <div class="col-sm-9 col-lg-10">
                         @Html.CheckBoxFor(model => model.IsActive)
                     </div>
                 </div>
@@ -75,10 +78,12 @@
 
             <div class="form-horizontal">
                 <div class="col-sm-offset-3 text-center">
-                    <button type="button" id="btnSave" class="btn btn-primary ladda-button" data-size="s" data-style="zoom-in">
+                    <button type="button" id="btnSave" class="btn btn-primary ladda-button" data-size="s" data-style="zoom-in" onclick="save()">
                         <i class="fa fa-save"></i> Save
                     </button>
-                    <a class="btn btn-warning" onclick="LoadingEnable()" href="@Url.Action("Index", "User", new{area=Constants.AdminArea})"><i class="fa fa-remove"></i> Cancel</a>
+                    <a class="btn btn-warning" id="btnCancel" onclick="LoadingEnable()" href="@Url.Action("Index", "User", new {area = Constants.AdminArea})">
+                        <i class="fa fa-remove"></i> Cancel
+                    </a>
                 </div>
             </div>
         }
@@ -88,4 +93,14 @@
 @section scripts
 {
     <script src="~/Scripts/plugins/chosen/chosen.jquery.js"></script>
+
+    <script>
+        var $roleId;
+
+        $(document).ready(function () {
+            $roleId = $('#RoleId');
+
+            $roleId.chosen({ width: "100%" });
+        });
+    </script>
 }

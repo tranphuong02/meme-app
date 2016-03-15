@@ -1,0 +1,6 @@
+D:\Document\meme-app\Framework\BusinessLogic\obj\Debug\BusinessLogic.csprojResolveAssemblyReference.cache
+D:\Document\meme-app\Framework\Web\bin\BusinessLogic.dll.config
+D:\Document\meme-app\Framework\Web\bin\BusinessLogic.dll
+D:\Document\meme-app\Framework\Web\bin\BusinessLogic.pdb
+D:\Document\meme-app\Framework\BusinessLogic\obj\Debug\BusinessLogic.dll
+D:\Document\meme-app\Framework\BusinessLogic\obj\Debug\BusinessLogic.pdb

@@ -270,7 +270,6 @@ function convertUTCDateToLocalDate(date) {
 }
 
 function getFullDateStringFromDate(date) {
-    console.log(date);
     return date.getDate() + "/" + (date.getMonth()) + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
 }
 
@@ -330,7 +329,18 @@ function selectRowDatatableEffect($dataTable, $oTable) {
     });
 }
 
-
 function reloadDatatable($oTable) {
     $oTable.ajax.reload(null, false);
+}
+
+function save() {
+    var $btnCancel = $('#btnCancel');
+    var $form = $('#form');
+
+    if ($form.valid()) {
+        var ladda = Ladda.create(document.querySelector("#btnSave"));
+        $btnCancel.css('pointer-events', 'none').css('cursor', 'default').css("opacity", "0.6");
+        ladda.start();
+        $form.submit();
+    }
 }

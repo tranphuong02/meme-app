@@ -1,4 +1,6 @@
-﻿using Transverse.Interfaces.DAL;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Transverse.Interfaces.DAL;
 using Transverse.Models.DAL;
 
 namespace DatabaseAccess
@@ -8,6 +10,11 @@ namespace DatabaseAccess
          public RoleRepository(IDbContext dbContext)
             : base(dbContext)
         {
+        }
+
+        public IList<Role> GetAll()
+        {
+            return GetAll(x => x.IsDeleted == false).ToList();
         }
     }
 }
