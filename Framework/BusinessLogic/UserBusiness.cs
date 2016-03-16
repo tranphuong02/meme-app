@@ -148,6 +148,32 @@ namespace BusinessLogic
             }
         }
 
+        public BaseModel ChangePassword(ChangePasswordViewModel viewModel, int id)
+        {
+            try
+            {
+                var user = UserRepository.GetById(id);
+                if (user == null || user.IsDeleted)
+                {
+                    return new BaseModel(false, (int) HttpStatusCode.BadRequest, string.Format(Constants.Message.IsNotExists, "user"));
+                }
+
+                user.PasswordSalt = BackendHelpers.CreateSaltKey();
+                user.PasswordHash = BackendHelpers.CreatePasswordHash(viewModel.NewPassword, user.PasswordSalt);
+                user.ModifiedDate = DateTimeHelper.UTCNow();
+
+                UserRepository.Update(user);
+                DbContext.SaveChanges();
+
+                return new BaseModel(true, (int) HttpStatusCode.OK, Constants.Message.SuccessToChangePassword);
+            }
+            catch (Exception ex)
+            {
+               Provider.Instance.LogError(ex);
+               return new BaseModel(false, (int)HttpStatusCode.InternalServerError, ex.InnerException?.Message ?? ex.Message);
+            }
+        }
+
         public DataTablesResponse GetList(IDataTablesRequest dataTableParam, UserSearchViewModel searchViewModel)
         {
             try
@@ -267,6 +293,110 @@ namespace BusinessLogic
             {
                Provider.Instance.LogError(ex);
                return new BaseModel(false, (int)HttpStatusCode.InternalServerError, ex.InnerException?.Message ?? ex.Message);
+            }
+        }
+
+        public BaseModel Active(int id)
+        {
+             try
+            {
+                var user = UserRepository.GetById(id);
+
+                if (user == null)
+                {
+                    return UserNotFound();
+                }
+
+                user.IsActive = true;
+                user.ModifiedDate = DateTimeHelper.UTCNow();
+
+                UserRepository.Update(user);
+                DbContext.SaveChanges();
+
+                return new BaseModel(true, (int)HttpStatusCode.OK, user.FirstName + " " + user.LastName, string.Format(Constants.Message.SuccessToActive, user.Email));
+            }
+            catch (Exception ex)
+            {
+                Provider.Instance.LogError(ex);
+                return new BaseModel(false, (int)HttpStatusCode.InternalServerError, ex.InnerException?.Message ?? ex.Message);
+            }
+        }
+
+        public BaseModel Deactive(int id)
+        {
+            try
+            {
+                var user = UserRepository.GetById(id);
+
+                if (user == null)
+                {
+                    return UserNotFound();
+                }
+
+                user.IsActive = false;
+                user.ModifiedDate = DateTimeHelper.UTCNow();
+
+                UserRepository.Update(user);
+                DbContext.SaveChanges();
+
+                return new BaseModel(true, (int)HttpStatusCode.OK, user.FirstName + " " + user.LastName, string.Format(Constants.Message.SuccessToDeactive, user.Email));
+            }
+            catch (Exception ex)
+            {
+                Provider.Instance.LogError(ex);
+                return new BaseModel(false, (int)HttpStatusCode.InternalServerError, ex.InnerException?.Message ?? ex.Message);
+            }
+        }
+
+        public BaseModel Delete(int id)
+        {
+            try
+            {
+                var user = UserRepository.GetById(id);
+
+                if (user == null)
+                {
+                    return UserNotFound();
+                }
+
+                user.IsDeleted = true;
+                user.ModifiedDate = DateTimeHelper.UTCNow();
+
+                UserRepository.Update(user);
+                DbContext.SaveChanges();
+
+                return new BaseModel(true, (int)HttpStatusCode.OK, user.FirstName + " " + user.LastName, string.Format(Constants.Message.SuccessToDelete, user.Email));
+            }
+            catch (Exception ex)
+            {
+                Provider.Instance.LogError(ex);
+                return new BaseModel(false, (int)HttpStatusCode.InternalServerError, ex.InnerException?.Message ?? ex.Message);
+            }
+        }
+
+        public BaseModel ResetPassword(int id)
+        {
+            try
+            {
+                var user = UserRepository.GetById(id);
+
+                if (user == null)
+                {
+                    return UserNotFound();
+                }
+                user.PasswordSalt = BackendHelpers.CreateSaltKey();
+                user.PasswordHash = BackendHelpers.CreatePasswordHash(Constants.DefaultPassword, user.PasswordSalt);
+                user.ModifiedDate = DateTimeHelper.UTCNow();
+
+                UserRepository.Update(user);
+                DbContext.SaveChanges();
+
+                return new BaseModel(true, (int)HttpStatusCode.OK, user.FirstName + " " + user.LastName, string.Format(Constants.Message.SuccessToResetPassword, user.Email));
+            }
+            catch (Exception ex)
+            {
+                Provider.Instance.LogError(ex);
+                return new BaseModel(false, (int)HttpStatusCode.InternalServerError, ex.InnerException?.Message ?? ex.Message);
             }
         }
 

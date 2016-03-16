@@ -195,5 +195,42 @@ namespace Web.Areas.Administrator.Controllers.WEB
             ModelState.AddModelError("", result.Message);
             return View(viewModel);
         }
+
+        [HttpGet]
+        public ActionResult ChangePassword()
+        {
+            if (User.IsInRole(Constants.RoleName.SuperAdmin))
+            {
+                return HttpNotFound();
+            }
+            var viewModel = new ChangePasswordViewModel();
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword(ChangePasswordViewModel viewModel)
+        {
+            if (User.IsInRole(Constants.RoleName.SuperAdmin))
+            {
+                return HttpNotFound();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                TempData.SetStatusMessage(GetModelErrorMessage(), UtilityEnum.StatusMessageType.Danger);
+                return View(viewModel);
+            }
+
+            var result = UserBusiness.ChangePassword(viewModel, BackendHelpers.CurrentUserId());
+            if (!result.IsSuccess)
+            {
+                TempData.SetStatusMessage(result.Message, UtilityEnum.StatusMessageType.Danger);
+                return View(viewModel);
+            }
+
+            TempData.SetStatusMessage(result.Message);
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

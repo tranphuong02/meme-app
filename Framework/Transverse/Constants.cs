@@ -62,104 +62,34 @@ namespace Transverse
 
         public class Message
         {
-            /// <summary>
-            /// Define the success to create message
-            /// </summary>
             public const string SuccessToAdd = "This {0} has been added successfully";
 
-            /// <summary>
-            /// Define the fail to create message
-            /// </summary>
-            public const string FailToAdd = "This {0} has been added unsuccessfully";
-
-            /// <summary>
-            /// Define the success to edit message
-            /// </summary>
             public const string SuccessToEdit = "This {0} has been edited successfully";
 
-            /// <summary>
-            /// Define the fail to edit message
-            /// </summary>
-            public const string FailToEdit = "This {0} has been edited unsuccessfully";
-
-            /// <summary>
-            /// Define the success to delete message
-            /// </summary>
             public const string SuccessToDelete = "This {0} has been deleted successfully";
 
-            /// <summary>
-            /// Define the fail to delete message
-            /// </summary>
-            public const string FailToDelete = "This {0} has been deleted unsuccessfully";
-
-            /// <summary>
-            /// Define the success to approve message
-            /// </summary>
             public const string SuccessToApprove = "This {0} has been approved successfully";
 
-            /// <summary>
-            /// Define the fail to approve message
-            /// </summary>
-            public const string FailToApprove = "This {0} has been approved unsuccessfully";
-
-            /// <summary>
-            /// Define the success to approve message
-            /// </summary>
             public const string SuccessToReject = "This {0} has been rejected successfully";
 
-            /// <summary>
-            /// Define the fail to approve message
-            /// </summary>
-            public const string FailToReject = "This {0} has been rejected unsuccessfully";
-
-            /// <summary>
-            /// Define the success to re-open message
-            /// </summary>
             public const string SuccessToReOpen = "This {0} has been re-opened successfully";
 
-            /// <summary>
-            /// Define the fail to re-open message
-            /// </summary>
-            public const string FailToReOpen = "This {0} has been re-opened unsuccessfully";
-
-            /// <summary>
-            /// Define the success to re-open message
-            /// </summary>
             public const string SuccessToArchive = "This {0} has been archived successfully";
 
-            /// <summary>
-            /// Define the fail to re-open message
-            /// </summary>
-            public const string FailToArchive = "This {0} has been archived unsuccessfully";
-
-            /// <summary>
-            /// Define the success to re-open message
-            /// </summary>
             public const string SuccessToActive = "This {0} has been active successfully";
 
-            /// <summary>
-            /// Define the fail to re-open message
-            /// </summary>
-            public const string FailToActive = "This {0} has been active unsuccessfully";
+            public const string SuccessToDeactive = "This {0} has been deactive successfully";
 
-            /// <summary>
-            /// Define the error occur  message
-            /// </summary>
+            public const string SuccessToResetPassword = "This {0} has been reset successfully";
+
+            public const string SuccessToChangePassword = "Your password has been changed successfully";
+
             public const string ErrorOccur = "Error occur, please try again!";
 
-            /// <summary>
-            /// Define the is not exists message
-            /// </summary>
             public const string IsNotExists = "This {0} does not exist";
 
-            /// <summary>
-            /// Define the exists message
-            /// </summary>
             public const string IsExists = "{0} is exist";
 
-            /// <summary>
-            /// Define the invalid status message for deal/coupon
-            /// </summary>
             public const string IvalidStatus = "Invalid status. Your {0} {1} was edited by another checker or manager. Please refresh page and try again!";
 
             public const string InvalidLogin = "Username and password is invalid.";

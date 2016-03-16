@@ -17,11 +17,12 @@
                         </span>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li><a href="@Url.Action("ChangePassword", "Account")">Change Password</a></li>
-                        <li class="divider"></li>
-                        <li><a href="@Url.Action("UpdateProfile", "Account")">Update Profile</a></li>
-                        <li class="divider"></li>
-                        <li><a href="@Url.Action("Logout", "Account")">Logout</a></li>
+                        @if (BackendHelpers.CurrentUserIsInRole(Constants.RoleName.SuperAdmin) == false)
+                        {
+                            <li><a href="@Url.Action("ChangePassword", "Account", new{area=Constants.AdminArea})">Change Password</a></li>
+                            <li class="divider"></li>
+                        }
+                        <li><a href="@Url.Action("Logout", "Account", new { area = Constants.AdminArea })">Logout</a></li>
                     </ul>
                 </div>
 

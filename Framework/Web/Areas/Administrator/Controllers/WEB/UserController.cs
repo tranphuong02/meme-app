@@ -1,15 +1,16 @@
-﻿using System.Web.Mvc;
-using Framework.Datatable.RequestBinder;
+﻿using Framework.Datatable.RequestBinder;
 using Framework.Utility;
 using Microsoft.Practices.Unity;
+using System.Web.Mvc;
 using Transverse.Interfaces.Business;
+using Transverse.Models.Business.Account;
 using Transverse.Models.Business.User;
 using Transverse.Security;
 using Constants = Transverse.Constants;
 
 namespace Web.Areas.Administrator.Controllers.WEB
 {
-    [CustomAuthorize(Roles = Constants.RoleName.SuperAdmin + "," + Constants.RoleName.Admin)]
+    [CustomAuthorize(Roles = Constants.RoleName.SuperAdmin)]
     public class UserController : BaseController
     {
         [Dependency]

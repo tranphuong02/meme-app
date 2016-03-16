@@ -45,7 +45,7 @@
                 bSortCellsTop: true,
                 sDom: "Rlfrtip",
                 bFilter: true,
-                "columnDefs": [{ "targets": [4], "orderable": false }],
+                "columnDefs": [{ "targets": [3, 4], "orderable": false }],
                 "order": [[0, "desc"]],
                 "columns": [
                      {
@@ -64,31 +64,32 @@
                          "className": "text-left"
                      },
                     {
-                        "data": "IsActive",
+                        "data": function (d) {
+                            return d;
+                        },
                         "render": function (d) {
-                            var html = '<span class="label label-primary">Active</span>';
-                            if (!d) {
-                                html = '<span class="label label-primary">InActive</span>';
-                            }
+                            var html = "";
+                            html += '<a href="' + commonUrl.editUser + '/' + d.Id + '"  onclick="LoadingEnable()" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Edit user"><i class="fa fa-pencil-square-o"></i></a>&nbsp;';
+                            html += ' <button class="btn btn-success btn-xs" onClick="resetPassword(this)" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Reset password" data-id="' + d.Id + '" data-name="' + d.FullName + '"><i class="fa fa-refresh"></i></button>';
+                            html += ' <button class="btn btn-danger btn-xs" onclick="deleteUser(this)" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Delete user" data-id="' + d.Id + '" data-name="' + d.FullName + '"><i class="fa fa-trash"></i></button>';
                             return html;
                         },
-                        "className": "text-left"
+                        "className": "text-center"
                     },
                     {
                         "data": function (d) {
                             return d;
                         },
                         "render": function (d) {
-                            var html = "";
-                            html += '<a href="@Url.Action("Edit","User", new{area=Constants.AdminArea})/' + d.Id + '"  onclick="LoadingEnable()" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Edit user"><i class="fa fa-pencil-square-o"></i></a>&nbsp;';
-                            return html;
+                            var checked = d.IsActive ? "checked" : "";
+                            return '<input type="checkbox" class="js-switch" ' + checked + ' data-id="' + d.Id + '" data-name="' + d.FullName + '"/>';
                         },
                         "className": "text-center"
                     }
                 ],
                 "initComplete": function (settings, json) {
-                    customFilterByRole();
                     customFilterByStatus();
+                    customFilterByRole();
                 },
                 "oColReorder": {
                     "iFixedColumns": 1
@@ -98,6 +99,7 @@
                 },
                 "fnDrawCallback": function (oSettings) {
                     selectRowDatatableEffect($dataTable, $oTable);
+                    switcherCheckBoxActiveStatus();
                 }
             });
 
@@ -128,7 +130,7 @@
         }
 
         function customFilterByStatus() {
-            var filter = '<span><strong>Role:</strong> </span>&nbsp;<select class="form-control input-sm m-r-sm padding-top-zero" id="filterByStatus">' +
+            var filter = '<span><strong>Status:</strong> </span>&nbsp;<select class="form-control input-sm m-r-sm padding-top-zero" id="filterByStatus">' +
                                 '<option value="@Constants.AllValue" selected="selected">@Constants.AllText</option>' +
                                 '<option value="@((int)ActiveType.Active)">@ActiveType.Active.ToString()</option>' +
                                 '<option value="@((int)ActiveType.InActive)">@ActiveType.InActive.ToString()</option>' +
@@ -139,6 +141,207 @@
             $("#filterByStatus").on("change", function () {
                 reloadDatatable($oTable);
             });
+        }
+
+        function switcherCheckBoxActiveStatus() {
+
+            var elems = Array.prototype.slice.call(document.querySelectorAll(".js-switch"));
+
+            elems.forEach(function (html) {
+                if ($(html).attr("data-switchery") !== "true") {
+                    var switchery = new Switchery(html, { color: "#18a689", size: "small" });
+                }
+            });
+
+            $(".switchery").click(function () {
+                var $this = $(this);
+
+                var $checkbox = ($this.parent().children("input[type=checkbox]"));
+
+                var beforeIsChecked = !$checkbox[0].checked;
+                var userName = $checkbox.data('name');
+                var userId = parseInt($checkbox.data('id'));
+
+                var labelIsEnable;
+                var labelUpperIsEnable;
+                var btnColor;
+
+                if (beforeIsChecked) {
+                    labelIsEnable = "de-active";
+                    labelUpperIsEnable = "De-active successful!";
+                    btnColor = "#ff5252";
+                } else {
+                    labelIsEnable = "active";
+                    labelUpperIsEnable = "Active successful!";
+                    btnColor = "#18a689";
+                }
+
+                swal({
+                    title: "Are you sure?",
+                    text: "You will " + labelIsEnable + " user: " + userName,
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: btnColor,
+                    confirmButtonText: "Yes, " + labelIsEnable + " it!",
+                    cancelButtonText: "No, cancel",
+                    closeOnConfirm: false,
+                    closeOnCancel: false,
+                    showLoaderOnConfirm: true
+                },
+                    function (isConfirm) {
+                        if (isConfirm) {
+                            if (!beforeIsChecked) {
+                                // call active
+                                $.ajax({
+                                    url: commonUrl.activeUser,
+                                    type: httpMethod().POST,
+                                    data: {
+                                        "Id": userId
+                                    },
+                                    success: function (result) {
+                                        if (result.isSuccess) {
+                                            swal({
+                                                title: labelUpperIsEnable,
+                                                text: result.message,
+                                                type: "success",
+                                                timer: commonVariables().autoCloseTimer
+                                            });
+                                            reloadDatatable($oTable);
+                                        } else {
+                                            $this.click();
+                                            swal({
+                                                title: labelUpperIsEnable,
+                                                text: result.message,
+                                                type: "error",
+                                                timer: commonVariables().autoCloseTimer
+                                            });
+                                        }
+                                    }
+                                });
+                            } else {
+                                // call de-active
+                                $.ajax({
+                                    url: commonUrl.deActiveUser,
+                                    type: httpMethod().POST,
+                                    data: {
+                                        "Id": userId
+                                    },
+                                    success: function (result) {
+                                        if (result.isSuccess) {
+                                            swal({
+                                                title: labelUpperIsEnable,
+                                                text: result.message,
+                                                type: "success",
+                                                timer: commonVariables().autoCloseTimer
+                                            });
+                                            reloadDatatable($oTable);
+                                        } else {
+                                            $this.click();
+                                            swal({
+                                                title: labelUpperIsEnable,
+                                                text: result.message,
+                                                type: "error",
+                                                timer: commonVariables().autoCloseTimer
+                                            });
+                                        }
+                                    }
+                                });
+                            }
+                        } else {
+                            $this.click();
+                            swal({
+                                title: "Cancelled",
+                                text: "Your user is safe :",
+                                type: "error",
+                                timer: commonVariables().autoCloseTimer
+                            });
+                        }
+                    });
+            });
+        }
+
+        function deleteUser(e) {
+            var $that = $(e);
+            var id = $that.data('id');
+            var name = $that.data('name');
+
+            swal({
+                title: "Are you sure?",
+                text: "You will delete user: " + name,
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#18a689",
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel",
+                closeOnConfirm: false,
+                closeOnCancel: false,
+                showLoaderOnConfirm: true,
+                html: true
+            },
+               function (isConfirm) {
+                   if (isConfirm) {
+                       $.ajax({
+                           url: commonUrl.deleteUser,
+                           type: httpMethod().POST,
+                           data: {
+                               "Id": id
+                           },
+                           success: function (result) {
+                               if (result.isSuccess) {
+                                   deleteSuccessCallback(result);
+                                   // reload table
+                                   reloadDatatable($oTable);
+                               } else {
+                                   deleteFailCallback(result);
+                               }
+                           }
+                       });
+                   } else {
+                       cancelCallback("Your user is safe :)");
+                   }
+               });
+        }
+
+        function resetPassword(e) {
+            var $that = $(e);
+            var id = $that.data('id');
+            var name = $that.data('name');
+
+            swal({
+                title: "Are you sure?",
+                text: "You will reset user password: " + name,
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#18a689",
+                confirmButtonText: "Yes, reset password it!",
+                cancelButtonText: "No, cancel",
+                closeOnConfirm: false,
+                closeOnCancel: false,
+                showLoaderOnConfirm: true,
+                html: true
+            },
+               function (isConfirm) {
+                   if (isConfirm) {
+                       $.ajax({
+                           url: commonUrl.resetPasswordUser,
+                           type: httpMethod().POST,
+                           data: {
+                               "Id": id
+                           },
+                           success: function (result) {
+                               if (result.isSuccess) {
+                                   resetPasswordSuccessCallback(result);
+                                   // reload table
+                                   reloadDatatable($oTable);
+                               } else {
+                                   resetPasswordFailCallback(result);
+                               }
+                           }
+                       });
+                   } else {
+                       cancelCallback("Your user is safe :)");
+                   }
+               });
         }
     </script>
 }
@@ -167,10 +370,10 @@
                         <thead>
                             <tr>
                                 <th class="col-lg-4">Email</th>
-                                <th class="col-lg-4">Full Name</th>
+                                <th class="col-lg-3">Full Name</th>
                                 <th class="col-lg-2">Role</th>
-                                <th class="col-lg-1">Status</th>
                                 <th class="col-lg-1">Action</th>
+                                <th class="col-lg-1">Status</th>
                             </tr>
                         </thead>
                         <tbody></tbody>

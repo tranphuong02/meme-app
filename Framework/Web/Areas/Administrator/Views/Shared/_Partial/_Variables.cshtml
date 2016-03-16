@@ -1,7 +1,13 @@
 ﻿@using Transverse
 <script>
-    commonUrl = {
+    var commonUrl = {
         /* User */
         getUserList: '@Url.Action("GetListUser", "User", new { area = Constants.AdminArea })',
+        addUser: '@Url.Action("Add", "User", new { area = Constants.AdminArea })',
+        editUser: '@Url.Action("Edit", "User", new { area = Constants.AdminArea })',
+        activeUser: '@Url.RouteUrl("DefaultApi", new { httproute = true, controller = "UserApi", action = "Active" })',
+        deActiveUser: '@Url.RouteUrl("DefaultApi", new { httproute = true, controller = "UserApi", action = "Deactive" })',
+        deleteUser: '@Url.RouteUrl("DefaultApi", new { httproute = true, controller = "UserApi", action = "Delete" })',
+        resetPasswordUser: '@Url.RouteUrl("DefaultApi", new { httproute = true, controller = "UserApi", action = "ResetPassword" })',
     };
 </script>

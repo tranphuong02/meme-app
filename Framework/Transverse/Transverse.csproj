@@ -189,7 +189,12 @@
     <Compile Include="Models\Business\Account\ResetPasswordViewModel.cs" />
     <Compile Include="Models\Business\Account\SendMailInfoViewModel.cs" />
     <Compile Include="Models\Business\BaseModel.cs" />
+    <Compile Include="Models\Business\User\ResetPasswordViewModel.cs" />
+    <Compile Include="Models\Business\User\UserActiveViewModel.cs" />
     <Compile Include="Models\Business\User\UserAddViewModel.cs" />
+    <Compile Include="Models\Business\Account\ChangePasswordViewModel.cs" />
+    <Compile Include="Models\Business\User\UserDeactiveViewModel.cs" />
+    <Compile Include="Models\Business\User\UserDeleteViewModel.cs" />
     <Compile Include="Models\Business\User\UserEditViewModel.cs" />
     <Compile Include="Models\Business\User\UserSearchViewModel.cs" />
     <Compile Include="Models\Business\User\UserViewModel.cs" />

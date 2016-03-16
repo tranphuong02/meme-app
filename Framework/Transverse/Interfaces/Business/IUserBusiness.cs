@@ -16,11 +16,21 @@ namespace Transverse.Interfaces.Business
 
         BaseModel ChangePassword(string email, string token, string newPassword);
 
+        BaseModel ChangePassword(ChangePasswordViewModel viewModel, int id);
+
         DataTablesResponse GetList(IDataTablesRequest dataTableParam, UserSearchViewModel searchViewModel);
 
         BaseModel Add(UserAddViewModel viewModel);
 
         BaseModel Edit(UserEditViewModel viewModel, int id);
+
+        BaseModel Active(int id);
+
+        BaseModel Deactive(int id);
+
+        BaseModel Delete(int id);
+
+        BaseModel ResetPassword(int id);
 
         void InitAddViewModel(UserAddViewModel viewModel);
 

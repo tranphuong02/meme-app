@@ -344,3 +344,49 @@ function save() {
         $form.submit();
     }
 }
+
+
+function deleteSuccessCallback(result) {
+    swal({
+        title: "Delete success",
+        text: result.message,
+        type: "success",
+        timer: commonVariables().autoCloseTimer
+    });
+}
+
+function deleteFailCallback(result) {
+    swal({
+        title: "Delete fail",
+        text: result.message,
+        type: "error",
+        timer: commonVariables().autoCloseTimer
+    });
+}
+
+function resetPasswordSuccessCallback(result) {
+    swal({
+        title: "Reset password success",
+        text: result.message,
+        type: "success",
+        timer: commonVariables().autoCloseTimer
+    });
+}
+
+function resetPasswordFailCallback(result) {
+    swal({
+        title: "Reset password fail",
+        text: result.message,
+        type: "error",
+        timer: commonVariables().autoCloseTimer
+    });
+}
+
+function cancelCallback(message) {
+    swal({
+        title: "Cancelled",
+        text: message,
+        type: "error",
+        timer: commonVariables().autoCloseTimer
+    });
+}

@@ -120,32 +120,27 @@ namespace Transverse.Utils
 
         public static int CurrentUserId()
         {
-            var currentUser = CurrentUser();
-            return currentUser == null ? 0 : currentUser.Id;
+            return CurrentUser().Id;
         }
 
         public static string CurrentUserName()
         {
-            var currentUser = CurrentUser();
-            return currentUser == null ? "" : currentUser.FirstName + " " + currentUser.LastName;
+            return CurrentUser().FirstName + " " + CurrentUser().LastName;
         }
 
         public static string CurrentUserEmail()
         {
-            var currentUser = CurrentUser();
-            return currentUser == null ? "" : currentUser.Email;
+            return CurrentUser().Email;
         }
 
         public static string CurrentUserRole()
         {
-            var currentUser = CurrentUser();
-            return currentUser == null ? "" : currentUser.Role;
+            return CurrentUser().Role;
         }
 
         public static bool CurrentUserIsInRole(string role)
         {
-            var currentUser = CurrentUser();
-            return currentUser == null ? false : currentUser.IsInRole(role);
+            return CurrentUser().IsInRole(role);
         }
     }
 }

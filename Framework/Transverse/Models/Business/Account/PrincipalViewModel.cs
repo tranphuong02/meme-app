@@ -1,4 +1,5 @@
-﻿using System.Security.Principal;
+﻿using System.Linq;
+using System.Security.Principal;
 
 namespace Transverse.Models.Business.Account
 {
@@ -18,8 +19,18 @@ namespace Transverse.Models.Business.Account
         public string Role { get; set; }
         public bool IsInRole(string role)
         {
-            return Role != null && role.Contains(role);
-        }
+            if (string.IsNullOrWhiteSpace(Role))
+            {
+                return false;
+            }
 
-    }
+            if (string.IsNullOrWhiteSpace(role))
+            {
+                return true;
+            }
+
+            var roles = role.Split(',').ToList();
+            return roles.Any(x => Role.Trim().ToLower().Contains(x.Trim().ToLower()));
+        }
+     }
 }
