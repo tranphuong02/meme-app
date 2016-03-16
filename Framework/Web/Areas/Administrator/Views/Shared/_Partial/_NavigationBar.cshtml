@@ -37,8 +37,12 @@
                 <a href="@Url.Action("Index", "Home")"><i class="fa fa-dashboard"></i> <span class="nav-label">Dashboard</span></a>
             </li>
 
-            <li class="menu-item @Html.ActivePage("UserManagement", "", "active")">
+            <li class="menu-item @Html.ActivePage("User", "", "active")">
                 <a href="@Url.Action("Index", "User")"><i class="fa fa-user"></i> <span class="nav-label">User Management</span></a>
+            </li>
+
+            <li class="menu-item @Html.ActivePage("Resource", "", "active")">
+                <a href="@Url.Action("Index", "Resource")"><i class="fa fa-user"></i> <span class="nav-label">Resource Management</span></a>
             </li>
         </ul>
     </div>

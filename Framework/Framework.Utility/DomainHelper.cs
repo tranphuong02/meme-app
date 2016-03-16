@@ -12,7 +12,7 @@ namespace Framework.Utility
                 string appPath = null;
 
                 //Getting the current context of HTTP request
-                HttpContext context = HttpContext.Current;
+                var context = HttpContext.Current;
 
                 //Checking the current context content
                 if (context != null)

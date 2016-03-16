@@ -6,3 +6,4 @@ D:\Document\meme-app\Framework\DatabaseAccess\obj\Debug\DatabaseAccess.Migration
 D:\Document\meme-app\Framework\DatabaseAccess\obj\Debug\DatabaseAccess.csproj.GenerateResource.Cache
 D:\Document\meme-app\Framework\DatabaseAccess\obj\Debug\DatabaseAccess.dll
 D:\Document\meme-app\Framework\DatabaseAccess\obj\Debug\DatabaseAccess.pdb
+D:\Document\meme-app\Framework\DatabaseAccess\obj\Debug\DatabaseAccess.Migrations.UpdateTableChapter.resources

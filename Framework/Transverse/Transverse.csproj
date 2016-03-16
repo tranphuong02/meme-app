@@ -152,6 +152,7 @@
     <Compile Include="Enums\CouponStatus.cs" />
     <Compile Include="Enums\DeviceType.cs" />
     <Compile Include="Enums\LanguageEnum.cs" />
+    <Compile Include="Enums\ResourceType.cs" />
     <Compile Include="Enums\ValueType.cs" />
     <Compile Include="Enums\RoleEnum.cs" />
     <Compile Include="Interfaces\Business\IUserBusiness.cs" />
@@ -189,6 +190,12 @@
     <Compile Include="Models\Business\Account\ResetPasswordViewModel.cs" />
     <Compile Include="Models\Business\Account\SendMailInfoViewModel.cs" />
     <Compile Include="Models\Business\BaseModel.cs" />
+    <Compile Include="Models\Business\Resource\ResourceChapterSearchViewModel.cs" />
+    <Compile Include="Models\Business\Resource\ResourceAuthorSearchViewModel.cs" />
+    <Compile Include="Models\Business\Resource\ResourceGenreSearchViewModel.cs" />
+    <Compile Include="Models\Business\Resource\ResourceAuthorViewModel.cs" />
+    <Compile Include="Models\Business\Resource\ResourceChapterViewModel.cs" />
+    <Compile Include="Models\Business\Resource\ResourceGenreViewModel.cs" />
     <Compile Include="Models\Business\User\ResetPasswordViewModel.cs" />
     <Compile Include="Models\Business\User\UserActiveViewModel.cs" />
     <Compile Include="Models\Business\User\UserAddViewModel.cs" />

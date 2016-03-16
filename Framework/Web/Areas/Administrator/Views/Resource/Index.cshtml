@@ -1,0 +1,74 @@
+﻿@using Transverse
+
+@{
+    ViewBag.Title = "Resource Management";
+    ViewBag.BodyHeader = "Resource Management";
+    Layout = Constants.AdminLayout;
+}
+
+@section styles{
+    <link href="~/Content/plugins/switchery/switchery.css" rel="stylesheet">
+    <link href="~/Content/plugins/chosen/chosen.css" rel="stylesheet">
+    <link href="~/Content/plugins/dataTables_V1/css/dataTables.bootstrap.css" rel="stylesheet" />
+}
+@section scripts{
+    <script src="~/Scripts/plugins/switchery/switchery.js"></script>
+    <script src="~/Scripts/plugins/chosen/chosen.jquery.js"></script>
+    <script src="~/Scripts/plugins/dataTables_V1/jquery.dataTables.js"></script>
+    <script src="~/Scripts/plugins/dataTables_V1/dataTables.bootstrap.js"></script>
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div>
+            <a href="@Url.Action("Add", "Resource", new {area = Constants.AdminArea})" class="btn btn-primary " onclick="LoadingEnable()">
+                <i class="fa fa-plus-circle"></i>
+                Add new resource
+            </a>
+        </div>
+        <br/>
+
+        @{
+            Html.RenderPartial("_Partial/_AuthorResource");
+            Html.RenderPartial("_Partial/_GenreResource");
+            Html.RenderPartial("_Partial/_ChapterResource");
+        }
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        var $authorBox,
+            $authorDataTable,
+            $oAuthorTable,
+            $genreBox,
+            $genreDataTable,
+            $oGenreTable,
+            $chapterBox,
+            $chapterDataTable,
+            $oChapterTable;
+
+        $(document).ready(function() {
+            initAuthor();
+            initGenre();
+            initChapter();
+        });
+
+        // Author
+        function initAuthor() {
+            $authorBox = $('.data-table-author-box');
+            $authorDataTable = $('.data-table-author');
+        };
+        // Genre
+        function initGenre() {
+            $genreBox = $('.data-table-author-box');
+            $genreDataTable = $('.data-table-author');
+        };
+        // Chapter
+        function initChapter() {
+            $chapterBox = $('.data-table-author-box');
+            $chapterDataTable = $('.data-table-author');
+        };
+    </script>
+}

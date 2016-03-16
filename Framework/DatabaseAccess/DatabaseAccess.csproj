@@ -179,6 +179,10 @@
     <Compile Include="Migrations\201603111112108_InitialDatabase.Designer.cs">
       <DependentUpon>201603111112108_InitialDatabase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603160838360_UpdateTableChapter.cs" />
+    <Compile Include="Migrations\201603160838360_UpdateTableChapter.Designer.cs">
+      <DependentUpon>201603160838360_UpdateTableChapter.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserRepository.cs" />
     <Compile Include="RoleRepository.cs" />
     <Compile Include="ReviewRepository.cs" />
@@ -238,6 +242,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201603111112108_InitialDatabase.resx">
       <DependentUpon>201603111112108_InitialDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603160838360_UpdateTableChapter.resx">
+      <DependentUpon>201603160838360_UpdateTableChapter.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

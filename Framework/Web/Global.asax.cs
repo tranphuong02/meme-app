@@ -61,7 +61,7 @@ namespace Web
             Server.ClearError();
 
             var httpEx = exception as HttpException;
-            string currentDomain = DomainHelper.FullyQualifiedApplicationPath;
+            var currentDomain = DomainHelper.FullyQualifiedApplicationPath;
             var urlHelper = new UrlHelper(HttpContext.Current.Request.RequestContext);
             if (httpEx != null && httpEx.WebEventCode == WebEventCodes.RuntimeErrorPostTooLarge)
             {

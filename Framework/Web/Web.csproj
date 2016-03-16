@@ -239,6 +239,7 @@
     <Compile Include="Areas\Administrator\Controllers\WEB\EmailController.cs" />
     <Compile Include="Areas\Administrator\Controllers\WEB\ErrorController.cs" />
     <Compile Include="Areas\Administrator\Controllers\WEB\HomeController.cs" />
+    <Compile Include="Areas\Administrator\Controllers\WEB\ResourceController.cs" />
     <Compile Include="Areas\Administrator\Controllers\WEB\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -1035,6 +1036,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Administrator\Views\Account\ChangePassword.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Administrator\Views\Resource\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Administrator\Views\Resource\_Partial\_GenreResource.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Administrator\Views\Resource\_Partial\_AuthorResource.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Administrator\Views\Resource\_Partial\_ChapterResource.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
