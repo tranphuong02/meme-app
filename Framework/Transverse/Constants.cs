@@ -93,6 +93,10 @@ namespace Transverse
             public const string IvalidStatus = "Invalid status. Your {0} {1} was edited by another checker or manager. Please refresh page and try again!";
 
             public const string InvalidLogin = "Username and password is invalid.";
+
+            public const string NoData = "There is no {0} data";
+
+
         }
 
         public class RoleName

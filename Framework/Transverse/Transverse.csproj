@@ -189,7 +189,9 @@
     <Compile Include="Models\Business\Account\PrincipalViewModel.cs" />
     <Compile Include="Models\Business\Account\ResetPasswordViewModel.cs" />
     <Compile Include="Models\Business\Account\SendMailInfoViewModel.cs" />
+    <Compile Include="Models\Business\Author\AuthorViewModel.cs" />
     <Compile Include="Models\Business\BaseModel.cs" />
+    <Compile Include="Models\Business\Genre\GenreViewModel.cs" />
     <Compile Include="Models\Business\Resource\ResourceChapterSearchViewModel.cs" />
     <Compile Include="Models\Business\Resource\ResourceAuthorSearchViewModel.cs" />
     <Compile Include="Models\Business\Resource\ResourceGenreSearchViewModel.cs" />

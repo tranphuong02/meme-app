@@ -221,6 +221,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Administrator\Views\AuthorApi\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -231,7 +232,9 @@
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Administrator\AdministratorAreaRegistration.cs" />
+    <Compile Include="Areas\Administrator\Controllers\API\AuthorApiController.cs" />
     <Compile Include="Areas\Administrator\Controllers\API\BaseApiController.cs" />
+    <Compile Include="Areas\Administrator\Controllers\API\GenreApiController.cs" />
     <Compile Include="Areas\Administrator\Controllers\API\HomeApiController.cs" />
     <Compile Include="Areas\Administrator\Controllers\API\UserApiController.cs" />
     <Compile Include="Areas\Administrator\Controllers\WEB\AccountController.cs" />

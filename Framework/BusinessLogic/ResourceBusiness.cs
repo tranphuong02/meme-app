@@ -34,7 +34,7 @@ namespace BusinessLogic
                     Id = x.Id,
                     Url = x.Url,
                     Tag = x.Tag,
-                    Genre = x.Genres.AsQueryable().Any(y => y.IsDeleted == false) ? x.Genres.AsQueryable().First().Title : ""
+                    Genre = x.Genres.AsQueryable().Any(y => y.IsDeleted == false) ? x.Genres.AsQueryable().FirstOrDefault().Title : ""
                 });
 
                 var entities = dataTableHelper.GetDataVMForResponse(dataTableParam);
@@ -64,7 +64,7 @@ namespace BusinessLogic
                     Id = x.Id,
                     Url = x.Url,
                     Tag = x.Tag,
-                    Author = x.Authors.AsQueryable().Any(y => y.IsDeleted == false) ? x.Authors.AsQueryable().First().Name : ""
+                    Author = x.Authors.AsQueryable().Any(y => y.IsDeleted == false) ? x.Authors.AsQueryable().FirstOrDefault().Name : ""
                 });
 
                 var entities = dataTableHelper.GetDataVMForResponse(dataTableParam);
@@ -107,7 +107,7 @@ namespace BusinessLogic
                     Url = x.Url,
                     Tag = x.Tag,
                     Order = x.Order,
-                    Chapter = x.ChapterResources.AsQueryable().Any(y => y.IsDeleted == false) ? x.ChapterResources.AsQueryable().First().Chapter.Title : ""
+                    Chapter = x.ChapterResources.AsQueryable().Any(y => y.IsDeleted == false) ? x.ChapterResources.AsQueryable().FirstOrDefault().Chapter.Title : ""
                 });
 
                 var entities = dataTableHelper.GetDataVMForResponse(dataTableParam);

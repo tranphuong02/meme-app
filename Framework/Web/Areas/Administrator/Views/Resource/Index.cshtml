@@ -11,23 +11,9 @@
     <link href="~/Content/plugins/chosen/chosen.css" rel="stylesheet">
     <link href="~/Content/plugins/dataTables_V1/css/dataTables.bootstrap.css" rel="stylesheet" />
 }
-@section scripts{
-    <script src="~/Scripts/plugins/switchery/switchery.js"></script>
-    <script src="~/Scripts/plugins/chosen/chosen.jquery.js"></script>
-    <script src="~/Scripts/plugins/dataTables_V1/jquery.dataTables.js"></script>
-    <script src="~/Scripts/plugins/dataTables_V1/dataTables.bootstrap.js"></script>
-}
 
 <div class="row">
     <div class="col-lg-12">
-        <div>
-            <a href="@Url.Action("Add", "Resource", new {area = Constants.AdminArea})" class="btn btn-primary " onclick="LoadingEnable()">
-                <i class="fa fa-plus-circle"></i>
-                Add new resource
-            </a>
-        </div>
-        <br/>
-
         @{
             Html.RenderPartial("_Partial/_AuthorResource");
             Html.RenderPartial("_Partial/_GenreResource");
@@ -38,6 +24,10 @@
 
 @section scripts
 {
+    <script src="~/Scripts/plugins/switchery/switchery.js"></script>
+    <script src="~/Scripts/plugins/chosen/chosen.jquery.js"></script>
+    <script src="~/Scripts/plugins/dataTables_V1/jquery.dataTables.js"></script>
+    <script src="~/Scripts/plugins/dataTables_V1/dataTables.bootstrap.js"></script>
     <script>
         var $authorBox,
             $authorDataTable,
@@ -49,7 +39,7 @@
             $chapterDataTable,
             $oChapterTable;
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             initAuthor();
             initGenre();
             initChapter();
@@ -59,16 +49,103 @@
         function initAuthor() {
             $authorBox = $('.data-table-author-box');
             $authorDataTable = $('.data-table-author');
+
+            $oAuthorTable = $authorDataTable.DataTable({
+                ajax: {
+                    url: commonUrl.getAuthorResourceList,
+                    type: httpMethod().POST,
+                    data: function (d) {
+                        return $.extend({}, d, {
+                            "AuthorId": $("#authorResourceFilterByAuthor").val() == undefined ? '@Constants.AllValue' : $("#authorResourceFilterByAuthor").val()
+                        });
+                    }
+                },
+                processing: true,
+                bStateSave: false,
+                serverSide: true,
+                bSortCellsTop: true,
+                sDom: "Rlfrtip",
+                bFilter: true,
+                "columnDefs": [{ "targets": [1], "orderable": false }],
+                "order": [[0, "desc"]],
+                "columns": [
+                    {
+                        "data": "Author",
+                        "render": function (d) {
+                            return '<span class="label label-primary">' + d + '</span>';
+                        },
+                        "className": "text-left"
+                    },
+                     {
+                         "data": function(d) {
+                             return d;
+                         },
+                         "render": function (d) {
+                             return '<img class="img-datatable" src="' + d.Url + '" alt="' + d.Tag + '"/>';
+                         },
+                         "className": "text-center"
+                     },
+                     {
+                         "data": "Tag",
+                         "className": "text-left"
+                     }
+                ],
+                "initComplete": function (settings, json) {
+                    authorResourceFilterByAuthor();
+                },
+                "oColReorder": {
+                    "iFixedColumns": 1
+                },
+                "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+
+                },
+                "fnDrawCallback": function (oSettings) {
+                    selectRowDatatableEffect($authorDataTable, $oAuthorTable);
+                }
+            });
+
+            // Listener
+            $authorDataTable.on("processing.dt", function (e, settings, processing) {
+                if (processing) {
+                    $authorDataTable.find("tbody input").attr("disabled", true);
+                } else {
+                    $authorDataTable.find("tbody input").removeAttr("disabled");
+                }
+            });
         };
+
+        function authorResourceFilterByAuthor() {
+            $.ajax({
+                url: commonUrl.getAllAuthor,
+                type: httpMethod().POST,
+                success: function (result) {
+                    var filter = '<span><strong>Author:</strong> </span>&nbsp;<select class="form-control input-sm m-r-sm padding-top-zero" id="authorResourceFilterByAuthor">' +
+                        '<option value="@Constants.AllValue" selected="selected">@Constants.AllText</option>';
+
+                    if (result.isSuccess) {
+                        $.each(result.data, function (key, item) {
+                            filter += '<option value="' + item.id + '">' + item.name + '</option>';
+                        });
+                    }
+
+                    filter += "</select>";
+                    $(filter).prependTo(".data-table-author-box div.dataTables_filter");
+
+                    $("#authorResourceFilterByAuthor").on("change", function () {
+                        reloadDatatable($oAuthorTable);
+                    });
+                }
+            });
+        }
         // Genre
         function initGenre() {
-            $genreBox = $('.data-table-author-box');
-            $genreDataTable = $('.data-table-author');
+            $genreBox = $('.data-table-genre-box');
+            $genreDataTable = $('.data-table-genre');
         };
         // Chapter
         function initChapter() {
-            $chapterBox = $('.data-table-author-box');
-            $chapterDataTable = $('.data-table-author');
+            $chapterBox = $('.data-table-chapter-box');
+            $chapterDataTable = $('.data-table-chapter');
         };
     </script>
 }

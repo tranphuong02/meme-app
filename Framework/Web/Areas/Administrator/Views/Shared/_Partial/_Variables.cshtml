@@ -9,5 +9,16 @@
         deActiveUser: '@Url.RouteUrl("DefaultApi", new { httproute = true, controller = "UserApi", action = "Deactive" })',
         deleteUser: '@Url.RouteUrl("DefaultApi", new { httproute = true, controller = "UserApi", action = "Delete" })',
         resetPasswordUser: '@Url.RouteUrl("DefaultApi", new { httproute = true, controller = "UserApi", action = "ResetPassword" })',
+        /* Resource */
+        getAuthorResourceList: '@Url.Action("GetListAuthor", "Resource", new { area = Constants.AdminArea })',
+        getGenreResourceList: '@Url.Action("GetListGenre", "Resource", new { area = Constants.AdminArea })',
+        getChapterResourceList: '@Url.Action("GetListChapter", "Resource", new { area = Constants.AdminArea })',
+        /* Author */
+        getAllAuthor: '@Url.RouteUrl("DefaultApi", new { httproute = true, controller = "AuthorApi", action = "GetAll" })',
+        /* Genre */
+
+        /* Category */
+
+        /* Chapter */
     };
 </script>
