@@ -1,5 +1,0 @@
-D:\Document\meme-app\Framework\Framework.LinqSupport\bin\Debug\Framework.LinqSupport.dll
-D:\Document\meme-app\Framework\Framework.LinqSupport\bin\Debug\Framework.LinqSupport.pdb
-D:\Document\meme-app\Framework\Framework.LinqSupport\obj\Debug\Framework.LinqSupport.csprojResolveAssemblyReference.cache
-D:\Document\meme-app\Framework\Framework.LinqSupport\obj\Debug\Framework.LinqSupport.dll
-D:\Document\meme-app\Framework\Framework.LinqSupport\obj\Debug\Framework.LinqSupport.pdb

@@ -1,9 +1,0 @@
-D:\Document\meme-app\Framework\Web\bin\DatabaseAccess.dll.config
-D:\Document\meme-app\Framework\Web\bin\DatabaseAccess.dll
-D:\Document\meme-app\Framework\Web\bin\DatabaseAccess.pdb
-D:\Document\meme-app\Framework\DatabaseAccess\obj\Debug\DatabaseAccess.csprojResolveAssemblyReference.cache
-D:\Document\meme-app\Framework\DatabaseAccess\obj\Debug\DatabaseAccess.Migrations.InitialDatabase.resources
-D:\Document\meme-app\Framework\DatabaseAccess\obj\Debug\DatabaseAccess.csproj.GenerateResource.Cache
-D:\Document\meme-app\Framework\DatabaseAccess\obj\Debug\DatabaseAccess.dll
-D:\Document\meme-app\Framework\DatabaseAccess\obj\Debug\DatabaseAccess.pdb
-D:\Document\meme-app\Framework\DatabaseAccess\obj\Debug\DatabaseAccess.Migrations.UpdateTableChapter.resources
