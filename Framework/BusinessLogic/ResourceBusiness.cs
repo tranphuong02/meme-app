@@ -24,7 +24,7 @@ namespace BusinessLogic
             try
             {
                 var query = ResourceRepository.GetAll(x => x.IsDeleted == false && x.Type == (int) ResourceType.Genre, null, x => x.Genres);
-                if (searchViewModel.GenreId != Constants.AllValue)
+                if (searchViewModel.GenreId > 0)
                 {
                     query = query.Where(x => x.Genres.Any(g => g.IsDeleted == false && g.Id == searchViewModel.GenreId));
                 }
@@ -54,7 +54,7 @@ namespace BusinessLogic
             try
             {
                 var query = ResourceRepository.GetAll(x => x.IsDeleted == false && x.Type == (int)ResourceType.Author, null, x => x.Authors);
-                if (searchViewModel.AuthorId != Constants.AllValue)
+                if (searchViewModel.AuthorId > 0)
                 {
                     query = query.Where(x => x.Authors.Any(g => g.IsDeleted == false && g.Id == searchViewModel.AuthorId));
                 }
@@ -83,20 +83,20 @@ namespace BusinessLogic
         {
             try
             {
-                var query = ResourceRepository.GetAll(x => x.IsDeleted == false && x.Type == (int)ResourceType.Chapter, null, x => x.Authors, x=> x.Genres, x=> x.ChapterResources);
-                if (searchViewModel.AuthorId != Constants.AllValue)
+                var query = ResourceRepository.GetAll(x => x.IsDeleted == false && x.Type == (int)ResourceType.Chapter);
+                if (searchViewModel.AuthorId > 0)
                 {
                     query = query.Where(x => x.Authors.Any(g => g.IsDeleted == false && g.Id == searchViewModel.AuthorId));
                 }
-                if (searchViewModel.GenreId != Constants.AllValue)
+                if (searchViewModel.GenreId > 0)
                 {
                     query = query.Where(x => x.Genres.Any(g => g.IsDeleted == false && g.Id == searchViewModel.GenreId));
                 }
-                if (searchViewModel.CategoryId != Constants.AllValue)
+                if (searchViewModel.CategoryId > 0)
                 {
                     query = query.Where(x => x.ChapterResources.Any(g => g.IsDeleted == false && g.Chapter.CategoryId == searchViewModel.CategoryId));
                 }
-                if (searchViewModel.ChapterId != Constants.AllValue)
+                if (searchViewModel.ChapterId > 0)
                 {
                     query = query.Where(x => x.ChapterResources.Any(g => g.IsDeleted == false && g.ChapterId == searchViewModel.ChapterId));
                 }

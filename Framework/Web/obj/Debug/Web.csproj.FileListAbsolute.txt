@@ -29,7 +29,6 @@ D:\Document\meme-app\Framework\Web\bin\Microsoft.Practices.Unity.RegistrationByC
 D:\Document\meme-app\Framework\Web\bin\Microsoft.Web.Infrastructure.dll
 D:\Document\meme-app\Framework\Web\bin\Newtonsoft.Json.dll
 D:\Document\meme-app\Framework\Web\bin\Swashbuckle.Core.dll
-D:\Document\meme-app\Framework\Web\bin\System.Collections.Immutable.dll
 D:\Document\meme-app\Framework\Web\bin\System.Net.Http.Formatting.dll
 D:\Document\meme-app\Framework\Web\bin\System.Reflection.Metadata.dll
 D:\Document\meme-app\Framework\Web\bin\System.Web.Helpers.dll
@@ -83,7 +82,6 @@ D:\Document\meme-app\Framework\Web\bin\Microsoft.Practices.Unity.Configuration.x
 D:\Document\meme-app\Framework\Web\bin\Microsoft.Practices.Unity.Mvc.xml
 D:\Document\meme-app\Framework\Web\bin\Microsoft.Practices.Unity.RegistrationByConvention.xml
 D:\Document\meme-app\Framework\Web\bin\Newtonsoft.Json.xml
-D:\Document\meme-app\Framework\Web\bin\System.Collections.Immutable.xml
 D:\Document\meme-app\Framework\Web\bin\System.Composition.AttributedModel.xml
 D:\Document\meme-app\Framework\Web\bin\System.Composition.Convention.xml
 D:\Document\meme-app\Framework\Web\bin\System.Composition.Hosting.xml

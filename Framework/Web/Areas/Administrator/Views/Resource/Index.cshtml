@@ -141,11 +141,155 @@
         function initGenre() {
             $genreBox = $('.data-table-genre-box');
             $genreDataTable = $('.data-table-genre');
+
+            $oGenreTable = $genreDataTable.DataTable({
+                ajax: {
+                    url: commonUrl.getGenreResourceList,
+                    type: httpMethod().POST,
+                    data: function (d) {
+                        return $.extend({}, d, {
+                            "GenreId": $("#genreResourceFilterByGenre").val() == undefined ? '@Constants.AllValue' : $("#genreResourceFilterByGenre").val()
+                        });
+                    }
+                },
+                processing: true,
+                bStateSave: false,
+                serverSide: true,
+                bSortCellsTop: true,
+                sDom: "Rlfrtip",
+                bFilter: true,
+                "columnDefs": [{ "targets": [1], "orderable": false }],
+                "order": [[0, "desc"]],
+                "columns": [
+                    {
+                        "data": "Genre",
+                        "render": function (d) {
+                            return '<span class="label label-primary">' + d + '</span>';
+                        },
+                        "className": "text-left"
+                    },
+                     {
+                         "data": function (d) {
+                             return d;
+                         },
+                         "render": function (d) {
+                             return '<img class="img-datatable" src="' + d.Url + '" alt="' + d.Tag + '"/>';
+                         },
+                         "className": "text-center"
+                     },
+                     {
+                         "data": "Tag",
+                         "className": "text-left"
+                     }
+                ],
+                "initComplete": function (settings, json) {
+                    genreResourceFilterByGenre();
+                },
+                "oColReorder": {
+                    "iFixedColumns": 1
+                },
+                "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+
+                },
+                "fnDrawCallback": function (oSettings) {
+                    selectRowDatatableEffect($genreDataTable, $oGenreTable);
+                }
+            });
+
+            // Listener
+            $genreDataTable.on("processing.dt", function (e, settings, processing) {
+                if (processing) {
+                    $genreDataTable.find("tbody input").attr("disabled", true);
+                } else {
+                    $genreDataTable.find("tbody input").removeAttr("disabled");
+                }
+            });
         };
+        function genreResourceFilterByGenre() {
+            $.ajax({
+                url: commonUrl.getAllGenre,
+                type: httpMethod().POST,
+                success: function (result) {
+                    var filter = '<span><strong>Genre:</strong> </span>&nbsp;<select class="form-control input-sm m-r-sm padding-top-zero" id="genreResourceFilterByGenre">' +
+                        '<option value="@Constants.AllValue" selected="selected">@Constants.AllText</option>';
+
+                    if (result.isSuccess) {
+                        $.each(result.data, function (key, item) {
+                            filter += '<option value="' + item.id + '">' + item.title + '</option>';
+                        });
+                    }
+
+                    filter += "</select>";
+                    $(filter).prependTo(".data-table-genre-box div.dataTables_filter");
+
+                    $("#genreResourceFilterByGenre").on("change", function () {
+                        reloadDatatable($oGenreTable);
+                    });
+                }
+            });
+        }
         // Chapter
         function initChapter() {
             $chapterBox = $('.data-table-chapter-box');
             $chapterDataTable = $('.data-table-chapter');
+
+            $oChapterTable = $chapterDataTable.DataTable({
+                ajax: {
+                    url: commonUrl.getChapterResourceList,
+                    type: httpMethod().POST,
+                    data: function (d) {
+                        return $.extend({}, d, {
+                            "GenreId": $("#genreResourceFilterByGenre").val() == undefined ? '@Constants.AllValue' : $("#genreResourceFilterByGenre").val()
+                        });
+                    }
+                },
+                processing: true,
+                bStateSave: false,
+                serverSide: true,
+                bSortCellsTop: true,
+                sDom: "Rlfrtip",
+                bFilter: true,
+                "columnDefs": [{ "targets": [1], "orderable": false }],
+                "order": [[0, "desc"]],
+                "columns": [
+                    {
+                        "data": "Chapter",
+                        "render": function (d) {
+                            return '<span class="label label-primary">' + d + '</span>';
+                        },
+                        "className": "text-left"
+                    },
+                     {
+                         "data": function (d) {
+                             return d;
+                         },
+                         "render": function (d) {
+                             return '<img class="img-datatable" src="' + d.Url + '" alt="' + d.Tag + '"/>';
+                         },
+                         "className": "text-center"
+                     },
+                     {
+                         "data": "Tag",
+                         "className": "text-left"
+                     },
+                     {
+                         "data": "Order",
+                         "className": "text-left"
+                     }
+                ],
+                "initComplete": function (settings, json) {
+                   // genreResourceFilterByGenre();
+                },
+                "oColReorder": {
+                    "iFixedColumns": 1
+                },
+                "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+
+                },
+                "fnDrawCallback": function (oSettings) {
+                    selectRowDatatableEffect($chapterDataTable, $oChapterTable);
+                }
+            });
         };
     </script>
 }
